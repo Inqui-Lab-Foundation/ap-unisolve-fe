@@ -37,7 +37,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const dispatch = useDispatch();
     const { schedules } = useSelector((state) => state.schedules);
     const language = useSelector(state=>state?.mentors.mentorLanguage);
-   
     // for future use
     // useLayoutEffect(() => {
     //     dispatch(getSchedulesForTeacherAndStudents());
@@ -213,7 +212,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<RiTeamFill />}
                         className={
-                            location.pathname === '/teacher/teamlist' &&
+                            (location.pathname === '/teacher/teamlist' || location.pathname === '/teacher/create-team-member'
+                            || location.pathname === '/teacher/view-team-member' || location.pathname === '/teacher/create-team' ) && 
                             'sidebar-active'
                         }
                     >
@@ -248,7 +248,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         className={
                             (location.pathname === '/teacher/support-journey' ||
                                 location.pathname ===
-                                    '/teacher/support-journey/add-ticket') &&
+                                    '/teacher/support-journey/add-ticket' || location.pathname ===`/teacher/support-journey/ans-ticket`) &&
                             'sidebar-active'
                         }
                     >

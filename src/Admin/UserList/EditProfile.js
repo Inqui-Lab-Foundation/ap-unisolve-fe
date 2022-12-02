@@ -18,8 +18,6 @@ const EditProfile = (props) => {
     const currentUser = getCurrentUser('current_user');
     const mentorData =
         (history && history.location && history.location.data) || {};
-    console.log("mentorData", mentorData);              
-
     const headingDetails = {
         title: 'User Edit Details',
 
@@ -36,25 +34,6 @@ const EditProfile = (props) => {
     };
 
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-    // "mentor_id": 1,
-    //                 "user_id": 2,
-    //                 "reg_status": "3",
-    //                 "organization_code": "33320100606",
-    //                 "team_id": null,
-    //                 "full_name": "Vasu Aniket Joshi",
-    //                 "date_of_birth": null,
-    //                 "qualification": "-",
-    //                 "city": null,
-    //                 "district": null,
-    //                 "state": null,
-    //                 "country": null,
-    //                 "mobile": "9912349858",
-    //                 "otp": null,
-    //                 "status": "ACTIVE",
-    //                 "created_by": null,
-    //                 "created_at": "2022-10-17T12:17:01.000Z",
-    //                 "updated_by": null,
-    //                 "updated_at": "2022-10-17T12:17:29.000Z"
 
     const formik = useFormik({
         initialValues: {
@@ -95,7 +74,7 @@ const EditProfile = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status === 200) {
-                        props.history.push('/admin/userlist');
+                        props.history.push(mentorData.where === 'Dashbord' ? '/admin/dashboard' : '/admin/userlist');
                     }
                 })
                 .catch(function (error) {
@@ -222,7 +201,7 @@ const EditProfile = (props) => {
                                             size="small"
                                             onClick={() =>
                                                 props.history.push(
-                                                    '/admin/userlist'
+                                                    mentorData.where === 'Dashbord' ? '/admin/dashboard' : '/admin/userlist'
                                                 )
                                             }
                                         />

@@ -325,7 +325,7 @@ export const data = [
         genres: ['Drama', 'Western'],
         director: 'Quentin Tarantino',
         actors: 'Jamie Foxx, Christoph Waltz, Leonardo DiCaprio, Kerry Washington',
-        plot: 'With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal Mississippi plantation owner.',
+        plot: 'With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal MissisSICpi plantation owner.',
         posterUrl:
       'http://ia.media-imdb.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_SX300.jpg',
     },

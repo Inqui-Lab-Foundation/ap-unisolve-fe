@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Header.scss';
 import { FaBars } from 'react-icons/fa';
 import { Row, Col, Navbar } from 'reactstrap';
@@ -13,12 +13,28 @@ import AvatarImg from '../assets/media/img/Avatar.png';
 // import { Badge } from 'antd';
 // import {getCurrentUser, logout} from "../helpers/Utils"; 
 import {getCurrentUser} from "../helpers/Utils"; 
+import { useDispatch, useSelector } from 'react-redux';
+import i18next from 'i18next';
+import { getStudentGlobalLanguage } from '../redux/studentRegistration/actions';
 // import { useTranslation } from 'react-i18next';
 
 const Header = (props) => {
     // const { t } = useTranslation();
     // const history = useHistory();
+    const dispatch= useDispatch();
     const currentUser = getCurrentUser("current_user");
+    const {presuveyStatusGl} = useSelector(
+        (state) =>
+            state?.studentRegistration
+    );
+
+    const localLang = JSON.parse(localStorage.getItem("s_language"));
+    useEffect(() => {
+        if(localLang){
+            i18next.changeLanguage(localLang.code);
+            dispatch(getStudentGlobalLanguage(localLang));
+        }
+    }, []);
     // const profileOpt = {
     //     options: [
            
@@ -120,9 +136,9 @@ const Header = (props) => {
                                             {currentUser.data[0].full_name}
                                         </span> 
                                         {/* <CommonDropDownComp {...profileOpt} /> */}
-                                        <span className="common-language-selc">
+                                        {window.location.pathname === '/student/pre-survey' && presuveyStatusGl && presuveyStatusGl !=="COMPLETED" && <span className="common-language-selc">
                                             <LanguageSelectorComp module="student" />
-                                        </span>
+                                        </span>}
                                     </div>
                                 </Col>
                             </Row>

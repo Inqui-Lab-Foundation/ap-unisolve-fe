@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable no-unused-vars */
 import { Descriptions, Input } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
@@ -6,12 +8,16 @@ import { Button } from '../../stories/Button';
 import Layout from '../Layout';
 import { deleteTempMentorById } from '../store/admin/actions';
 import './dashboard.scss';
+import { useHistory } from 'react-router-dom';
+import jsPDF from 'jspdf';
 
 const Dashboard = () => {
+    const pdfRef = React.useRef(null);
     const inputField = {
         type: 'text',
         className: 'defaultInput'
     };
+    const history = useHistory();
     const [diesCode, setDiesCode] = useState('');
     const [orgData, setOrgData] = useState({});
     const [error, setError] = useState('');
@@ -22,6 +28,7 @@ const Dashboard = () => {
     };
 
     const handleSearch = (e) => {
+
         const body = JSON.stringify({
             organization_code: diesCode
         });
@@ -48,7 +55,28 @@ const Dashboard = () => {
             });
         e.preventDefault();
     };
-    
+    const handleEdit = () => {
+        history.push({
+            pathname: '/admin/edit-user-profile',
+            data: {
+                full_name: orgData.mentor?.full_name,
+                mobile: orgData.mentor?.mobile,
+                username: orgData.mentor?.user?.username,
+                mentor_id: orgData.mentor?.mentor_id,
+                where: 'Dashbord'
+            }
+        });
+    };
+    const downloadPDF = () => {
+        const content = pdfRef.current;
+        const doc = new jsPDF('p', 'px', [1280, 1020]);
+        doc.html(content, {
+            callback: function (doc) {
+                doc.save('Detail.pdf');
+            }
+        });
+        console.warn(content);
+    };
     return (
         <Layout>
             <div className="dashboard-wrapper pb-5 my-5 px-5">
@@ -92,10 +120,11 @@ const Dashboard = () => {
                                 </Col>
                             </Row>
 
-                            {diesCode && orgData && 
+                            {diesCode && orgData &&
                                 orgData?.organization_name &&
                                 orgData?.mentor !== null ? (
-                                    <>
+                                <>
+                                    {/* <div>
                                         <Descriptions
                                             bordered
                                             className='mt-3 text-left p-4'
@@ -108,19 +137,47 @@ const Dashboard = () => {
                                             <Descriptions.Item label="Faculty Mobile">{orgData.mentor?.mobile}</Descriptions.Item>
                                             <Descriptions.Item label="Faculty email">{orgData.mentor?.user?.username}</Descriptions.Item>
                                         </Descriptions>
-                                        <button onClick={()=>{
+                                    </div> */}
+                                    <div className='mb-5 p-3' ref={pdfRef}>
+                                        <div className="container-fluid card shadow border">
+                                            <div className="row">
+                                                <div className="col">
+                                                    <h2 className='text-center m-3 text-primary'>Registration Detail</h2>
+                                                    <hr />
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col">
+                                                    <ul className='p-0'>
+                                                        <li className='d-flex justify-content-between'>School:<p>{orgData.organization_name}</p></li>
+                                                        <li className='d-flex justify-content-between'>City: <p>{orgData.city}</p></li>
+                                                        <li className='d-flex justify-content-between'>District: <p>{orgData.district}</p></li>
+                                                        <li className='d-flex justify-content-between'>Faculty Name: <p>{orgData.mentor?.full_name}</p></li>
+                                                        <li className='d-flex justify-content-between'>Faculty Mobile: <p>{orgData.mentor?.mobile}</p></li>
+                                                        <li className='d-flex justify-content-between'>Faculty email: <p>{orgData.mentor?.user?.username}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='d-flex justify-content-between'>
+                                        <button onClick={() => handleEdit()} className='btn btn-warning btn-lg'>Edit</button>
+                                        <button onClick={() => { downloadPDF(); }} className='btn btn-primary rounded-pill px-4 btn-lg'>Download</button>
+                                        <button onClick={() => {
                                             deleteTempMentorById(orgData.mentor?.user_id);
                                             setOrgData({});
                                             setDiesCode("");
                                         }} className='btn btn-danger btn-lg' >Delete</button>
-                                    </>
-                                ) : !error && diesCode && orgData !=={} && orgData?.organization_name &&(
-                                    // <Card className="mt-3 p-4">
-                                    <div className='text-success fs-highlight d-flex justify-content-center align-items-center'>
-                                        <span>Still No Teacher Registered</span>
                                     </div>
-                                    // </Card>
-                                )}
+
+                                </>
+                            ) : !error && diesCode && orgData !== {} && orgData?.organization_name && (
+                                // <Card className="mt-3 p-4">
+                                <div className='text-success fs-highlight d-flex justify-content-center align-items-center'>
+                                    <span>Still No Teacher Registered</span>
+                                </div>
+                                // </Card>
+                            )}
                             {error && diesCode && (
                                 // <Card className="mt-3 p-4">
                                 <div className='text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center'>

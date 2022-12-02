@@ -29,6 +29,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import getStart from '../../assets/media/getStart.png';
 import { useTranslation } from 'react-i18next';
 import { updateStudentBadges } from '../../redux/studentRegistration/actions';
+//import { Modal } from 'react-bootstrap';
+//import ChildrensDaysGif from '../../assets/media/childrensdays.gif';
+
+// const GreetingModal = (props) => {
+//     return (
+//         <Modal
+//             show={props.show}
+//             size="lg"
+//             centered
+//             className="modal-popup text-center"
+//             onHide={props.handleClose}
+//             backdrop={true}
+//         >
+//             <Modal.Header closeButton></Modal.Header>
+
+//             <Modal.Body>
+//                 <figure>
+//                     <img
+//                         src={ChildrensDaysGif}
+//                         alt="Happy Children's Day"
+//                         className="img-fluid"
+//                     />
+//                 </figure>
+//             </Modal.Body>
+//         </Modal>
+//     );
+// };
 
 const PreSurvey = () => {
     const { t } = useTranslation();
@@ -42,6 +69,7 @@ const PreSurvey = () => {
         (state) => state?.studentRegistration?.studentLanguage
     );
     const [show, setShow] = useState(false);
+    //const [greetChildrensDay, setGreetChildrensDay] = useState(false);
 
     const formik = useFormik({
         initialValues: {},
@@ -79,7 +107,13 @@ const PreSurvey = () => {
                                 'Presurvey has been submitted successfully',
                                 ''
                             );
-                            dispatch(updateStudentBadges({ badge_slugs: ["survey_champ"] }, currentUser.data[0].user_id, language));
+                            dispatch(
+                                updateStudentBadges(
+                                    { badge_slugs: ['survey_champ'] },
+                                    currentUser.data[0].user_id,
+                                    language,t
+                                )
+                            );
                             setTimeout(() => {
                                 history.push('/dashboard');
                             }, 500);
@@ -93,21 +127,20 @@ const PreSurvey = () => {
             }
         }
     });
+
     useEffect(() => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         axios
             .get(
-                `${URL.getStudentPreSurveyList}?role=STUDENT&${getLanguage(language)}`,
+                `${URL.getStudentPreSurveyList}?role=STUDENT&${getLanguage(
+                    language
+                )}`,
                 axiosConfig
             )
             .then((preSurveyRes) => {
                 if (preSurveyRes?.status == 200) {
-                    setQuizSurveyId(
-                        preSurveyRes.data.data[0].quiz_survey_id
-                    );
-                    setPreSurveyStatus(
-                        preSurveyRes.data.data[0].progress
-                    );
+                    setQuizSurveyId(preSurveyRes.data.data[0].quiz_survey_id);
+                    setPreSurveyStatus(preSurveyRes.data.data[0].progress);
                     let allQuestions = preSurveyRes.data.data[0];
                     setPreSurveyList(allQuestions.quiz_survey_questions);
                 }
@@ -121,13 +154,28 @@ const PreSurvey = () => {
         setShow(true);
     };
 
+    // const handleClose = () => {
+    //     setGreetChildrensDay(false);
+    // };
+
+    useEffect(() => {
+        if (!localStorage.getItem('greetingChildren')) {
+            localStorage.setItem('greetingChildren', true);
+            //setGreetChildrensDay(true);
+        }
+    }, []);
+
     return (
         <Layout>
-            <Container className="presuervey mb-50 mt-5 ">
+            {/* <GreetingModal
+                handleClose={handleClose}
+                show={greetChildrensDay}
+            ></GreetingModal> */}
 
-                <Row className="justify-content-center aside p-4 bg-transparent">
+            <Container className="presuervey mb-50 mt-5 ">
+                <Row className="justify-content-center aside p-0 p-md-4 bg-transparent">
                     {!show && preSurveyStatus != 'COMPLETED' ? (
-                        <Card className='p-5'>
+                        <Card className="p-5">
                             <Row>
                                 <Col md={4}>
                                     <figure>
@@ -159,60 +207,53 @@ const PreSurvey = () => {
                         </Card>
                     ) : (
                         <>
-                            <h2>Pre Survey</h2>
+                            <h2>{t('home.pre_survey')}</h2>
                             {preSurveyStatus != 'COMPLETED' && (
                                 <Form
                                     className="form-row"
                                     onSubmit={formik.handleSubmit}
                                     isSubmitting
                                 >
-                                    {preSurveyList.map(
-                                        (eachQuestion, i) => {
-                                            return (
-                                                <Row key={i}>
-                                                    <Card className="card mb-4 my-3 comment-card px-0 px-5 py-3">
-                                                        <div className="question quiz mb-0">
-                                                            <b>
-                                                                {i + 1}.{' '}
-                                                                {
-                                                                    eachQuestion.question
-                                                                }
-                                                            </b>
-                                                        </div>
-                                                        <div className="answers">
-                                                            <FormGroup
-                                                                tag="fieldset"
-                                                                className="w-100"
-                                                                id="radioGroup1"
-                                                                label="One of these please"
-                                                                value={
-                                                                    formik
-                                                                        .values
-                                                                        .radioGroup1
-                                                                }
-                                                                error={
-                                                                    formik
-                                                                        .errors
-                                                                        .radioGroup1
-                                                                }
-                                                                touched={
-                                                                    formik
-                                                                        .touched
-                                                                        .radioGroup1
-                                                                }
-                                                                onChange={
-                                                                    formik.handleChange
-                                                                }
-                                                                onBlur={
-                                                                    formik.handleBlur
-                                                                }
-                                                            >
-                                                                <FormGroup
-                                                                    check
-                                                                >
-                                                                    <Label
-                                                                        check
-                                                                    >
+                                    {preSurveyList.map((eachQuestion, i) => {
+                                        return (
+                                            <Row key={i}>
+                                                <Card className="card mb-4 my-3 comment-card px-0 px-5 py-3">
+                                                    <div className="question quiz mb-0">
+                                                        <b>
+                                                            {i + 1}.{' '}
+                                                            {
+                                                                eachQuestion.question
+                                                            }
+                                                        </b>
+                                                    </div>
+                                                    <div className="answers">
+                                                        <FormGroup
+                                                            tag="fieldset"
+                                                            className="w-100"
+                                                            id="radioGroup1"
+                                                            label="One of these please"
+                                                            value={
+                                                                formik.values
+                                                                    .radioGroup1
+                                                            }
+                                                            error={
+                                                                formik.errors
+                                                                    .radioGroup1
+                                                            }
+                                                            touched={
+                                                                formik.touched
+                                                                    .radioGroup1
+                                                            }
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                        >
+                                                            {eachQuestion.option_a && (
+                                                                <FormGroup check>
+                                                                    <Label check>
                                                                         <Input
                                                                             type="radio"
                                                                             name={`radioGroup${i}`}
@@ -224,12 +265,10 @@ const PreSurvey = () => {
                                                                         }
                                                                     </Label>
                                                                 </FormGroup>
-                                                                <FormGroup
-                                                                    check
-                                                                >
-                                                                    <Label
-                                                                        check
-                                                                    >
+                                                            )}
+                                                            {eachQuestion.option_b && (
+                                                                <FormGroup check>
+                                                                    <Label check>
                                                                         <Input
                                                                             type="radio"
                                                                             name={`radioGroup${i}`}
@@ -241,12 +280,10 @@ const PreSurvey = () => {
                                                                         }
                                                                     </Label>
                                                                 </FormGroup>
-                                                                <FormGroup
-                                                                    check
-                                                                >
-                                                                    <Label
-                                                                        check
-                                                                    >
+                                                            )}
+                                                            {eachQuestion.option_c && (
+                                                                <FormGroup check>
+                                                                    <Label check>
                                                                         <Input
                                                                             type="radio"
                                                                             name={`radioGroup${i}`}
@@ -258,13 +295,10 @@ const PreSurvey = () => {
                                                                         }
                                                                     </Label>
                                                                 </FormGroup>
-
-                                                                <FormGroup
-                                                                    check
-                                                                >
-                                                                    <Label
-                                                                        check
-                                                                    >
+                                                            )}
+                                                            {eachQuestion.option_d && (
+                                                                <FormGroup check>
+                                                                    <Label check>
                                                                         <Input
                                                                             type="radio"
                                                                             name={`radioGroup${i}`}
@@ -276,15 +310,14 @@ const PreSurvey = () => {
                                                                         }
                                                                     </Label>
                                                                 </FormGroup>
+                                                            )}
 
-
-                                                            </FormGroup>
-                                                        </div>
-                                                    </Card>
-                                                </Row>
-                                            );
-                                        }
-                                    )}
+                                                        </FormGroup>
+                                                    </div>
+                                                </Card>
+                                            </Row>
+                                        );
+                                    })}
 
                                     <div className="text-right">
                                         <Button
@@ -304,29 +337,30 @@ const PreSurvey = () => {
                                                 )
                                             }
                                             size="small"
-                                            label="Submit"
+                                            label={t(
+                                                'student_presurvey.submit'
+                                            )}
                                         />
                                     </div>
                                 </Form>
                             )}
-
                             {preSurveyStatus == 'COMPLETED' && (
-                                <div style={{ textAlign: 'center' }}>
-                                    <div>
-                                        <img
-                                            className="img-fluid w-25"
-                                            src={Congo}
-                                        ></img>
-                                    </div>
+                                <Card className="p-5 m-5">
+                                    <div style={{ textAlign: 'center' }}>
+                                        <div>
+                                            <img
+                                                className="img-fluid w-25"
+                                                src={Congo}
+                                            ></img>
+                                        </div>
 
-                                    <div>
-                                        <h2>
-                                            {t(
-                                                'teacher_get_started.pre'
-                                            )}
-                                        </h2>
+                                        <div>
+                                            <h2>
+                                                {t('teacher_get_started.pre')}
+                                            </h2>
+                                        </div>
                                     </div>
-                                </div>
+                                </Card>
                             )}
                         </>
                     )}

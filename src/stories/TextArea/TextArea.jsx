@@ -12,7 +12,8 @@ export const TextArea = ({
     onChange,
     value,
     onBlur,
-    id
+    id,
+    disabled
 }) => {
     return (
         <div className="form-group textarea">
@@ -25,6 +26,7 @@ export const TextArea = ({
                 onChange={onChange}
                 onBlur={onBlur}
                 id={id}
+                disabled={disabled}
                 name={name}
                 aria-describedby="basic-addon1"
             ></textarea>

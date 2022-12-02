@@ -80,7 +80,6 @@ export const compareDates = (filterDate) => {
     );
 };
 export const logout = (history, t,module) => {
-    // const { t } = useTranslation();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -119,8 +118,8 @@ export const logout = (history, t,module) => {
                 result.dismiss === Swal.DismissReason.cancel
             ) {
                 swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'You are Logged in',
+                    t('general_req.cancelled'),
+                    t('general_req.logged_in'),
                     'error'
                 );
             }

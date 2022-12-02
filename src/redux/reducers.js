@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import home from './home/reducer';
 import authUser from './auth/reducer';
+import reports from './reports/reducer';
 import admin from '../Admin/store/admin/reducer';
 import teacher from '../Teachers/store/teacher/reducer';
 import sample from './sample/reducers';
@@ -38,7 +39,8 @@ const reducers = combineReducers({
     teams,
     studentTeam,
     schedules,
-    teacherDashBoard
+    teacherDashBoard,
+    reports
 });
 
 export default reducers;

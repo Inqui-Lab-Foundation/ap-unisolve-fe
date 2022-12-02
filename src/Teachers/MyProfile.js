@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import {
     Container,
     Row,
@@ -9,14 +9,14 @@ import {
     CardText
     // CardImg
 } from 'reactstrap';
-import { IoIosArrowBack } from 'react-icons/io';
+//import { IoIosArrowBack } from 'react-icons/io';
 // import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 // import ChangePSWModal from './ChangePSWModal';
 // import withReactContent from 'sweetalert2-react-content';
 
-import { Link } from 'react-router-dom';
-import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo.jsx';
+//import { Link } from 'react-router-dom';
+//import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo.jsx';
 
 import Layout from './Layout.jsx';
 import { getCurrentUser } from '../helpers/Utils';
@@ -60,7 +60,7 @@ import { getTeacherByID } from '../redux/actions';
 
 const MyProfile = () => {
     const currentUser = getCurrentUser('current_user');
-    const [profileAction, setProfileAction] = useState(true);
+    //const [profileAction, setProfileAction] = useState(true);
     const { teacher } = useSelector((state) => state.teacher);
     const dispatch = useDispatch();
 
@@ -77,35 +77,37 @@ const MyProfile = () => {
     useLayoutEffect(() => {
         dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
     }, [currentUser.data[0].mentor_id]);
-    useEffect(() => {
-        const search = window.location.search;
-        if (search === '?id=teams') {
-            setProfileAction(false);
-        }
-    });
-    const headingDetails = {
-        title: 'My Profile',
+    // useEffect(() => {
+    //     const search = window.location.search;
+    //     // if (search === '?id=teams') {
+    //     //     setProfileAction(false);
+    //     // }
+    // });
+    // const headingDetails = {
+    //     title: 'My Profile'
 
-        options: [
-            {
-                title: 'Home',
-                path: '/teacher/dashboard'
-            },
-            {
-                title: 'My Profile',
-                path: '/teacher/my-profile'
-            }
-        ]
-    };
+    //     // options: [
+    //     //     {
+    //     //         title: 'Home',
+    //     //         path: '/teacher/dashboard'
+    //     //     },
+    //     //     {
+    //     //         title: 'My Profile',
+    //     //         path: '/teacher/my-profile'
+    //     //     }
+    //     // ]
+    // };
 
     return (
         <Layout>
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {profileAction ? (
+                        <h2>My Profile</h2>
+                        {/* {profileAction ? (
                             <BreadcrumbTwo {...headingDetails} />
-                        ) : (
+                        ) 
+                        : (
                             <Link
                                 to="/teams"
                                 className="color-grey-1 mb-3 d-block"
@@ -113,7 +115,8 @@ const MyProfile = () => {
                                 <IoIosArrowBack />
                                 Go Back
                             </Link>
-                        )}
+                        )
+                        } */}
 
                         <Row>
                             <Col md={12}>
@@ -258,8 +261,8 @@ const MyProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {teacher?.organization_name
-                                                                            ? teacher?.organization_name
+                                                                        {teacher.organization?.organization_name
+                                                                            ? teacher.organization?.organization_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>

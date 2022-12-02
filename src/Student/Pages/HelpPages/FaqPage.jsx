@@ -1,35 +1,37 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import {  getCurrentUser } from "../../../helpers/Utils.js";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+//import {  getCurrentUser } from "../../../helpers/Utils.js";
 
-import { Row, Col } from "react-bootstrap";
+import { Row, Col } from 'react-bootstrap';
 // import { Button } from "../../stories/Button";
 // import { InputWithSearch } from "../../stories/InputWithSearch/InputWithSearch.stories";
-import "./style.scss";
-import { Accordion } from "react-bootstrap";
+import './style.scss';
+import { Accordion } from 'react-bootstrap';
 // import { Avatar, Badge } from "antd";
 // import User from "../../assets/img/avatar1.png";
 
-import {
-// FaTh,
+import // FaTh,
 // // FaThLarge,
 // FaBriefcase,
 // FaLightbulb,
 // FaShieldVirus,
 // FaQuestionCircle,
 // FaAngleRight,
-} from "react-icons/fa";
-import Layout from "../../Layout.jsx";
-import { getLanguage } from "../../../constants/languageOptions.js";
-import { useSelector } from "react-redux";
+'react-icons/fa';
+import Layout from '../../Layout.jsx';
+import { getLanguage } from '../../../constants/languageOptions.js';
+import { useSelector } from 'react-redux';
+import { getNormalHeaders } from '../../../helpers/Utils';
+import { KEY, URL } from '../../../constants/defaultValues';
 
 const FaqPage = () => {
-    const [queryId] = useState("Idea Submission");
+    const [queryId] = useState('Idea Submission');
     // changed
-    const currentUser = getCurrentUser("current_user");
+    //const currentUser = getCurrentUser("current_user");
     const [response, SetResponse] = useState([]);
-    const language = useSelector(state=>state?.studentRegistration?.studentLanguage);
-
+    const language = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
+    );
 
     // const defaultbtnProps = {
     //     size: "small",
@@ -87,27 +89,45 @@ const FaqPage = () => {
     //     setQueryId(id);
     // };
     // changed
-    useEffect(() => {
-        var config = {
-            method: "get",
-            url: process.env.REACT_APP_API_BASE_URL + "/faqs"+"?"+getLanguage(language),
-            headers: {
-                "Content-Type": "application/json",
-                // Accept: "application/json",
-                Authorization: `Bearer ${currentUser.data[0].token}`,
-            },
-            // data: body,
-        };
-        axios(config)
-            .then(function (response) {
-                console.log("line no:99", response);
-                if (response.status === 200) {
-                    SetResponse(response.data.data[0].dataValues);
+    const getFaqByCategory = async (id) => {
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        await axios
+            .get(
+                `${URL.getFaqByCategoryId}/${id}?${getLanguage(language)}`,
+                axiosConfig
+            )
+            .then((res) => {
+                if (res?.status === 200) {
+                    SetResponse(res?.data?.data[0]?.faqs);
                 }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch((err) => {
+                console.log(err.response);
             });
+    };
+
+    useEffect(() => {
+        getFaqByCategory(2);
+        // var config = {
+        //     method: "get",
+        //     url: process.env.REACT_APP_API_BASE_URL + "/faqs/"+`${1}`+"?"+`${getLanguage(language)}`,
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         // Accept: "application/json",
+        //         Authorization: `Bearer ${currentUser.data[0].token}`,
+        //     },
+        //     // data: body,
+        // };
+        // axios(config)
+        //     .then(function (response) {
+        //         console.log("line no:99", response);
+        //         if (response.status === 200) {
+        //             SetResponse(response.data.data[0].dataValues);
+        //         }
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
     }, [language]);
     return (
         <Layout>
@@ -180,28 +200,31 @@ const FaqPage = () => {
                                                     <Accordion.Header className="question">
                                                         <div className="idea-query py-3">
                                                             {/* <Avatar src={User} className="avatar-imgs" /> */}
-                                                            <span className="avatar-txt">{que.question}</span>
+                                                            <span className="avatar-txt">
+                                                                {que.question}
+                                                            </span>
                                                         </div>
                                                     </Accordion.Header>
                                                     <Accordion.Body>
                                                         <div className="idea-pblms">
-                                                            {/* {que.answer} */}
-                                                            {/* .map((ans, index) => { */}
-                                                            {/* // return ( */}
-                                                            <div className="idea-pblm-list" key={index}>
+                                                            <div
+                                                                className="idea-pblm-list"
+                                                                key={index}
+                                                            >
                                                                 <Row className="justify-content-between w-100">
                                                                     <Col
                                                                         md={12}
                                                                         xl={12}
                                                                         className="my-auto text-left"
                                                                     >
-                                                                        <p className="mb-0">{que.answer}</p>
+                                                                        <div
+                                                                            dangerouslySetInnerHTML={{
+                                                                                __html: que.answer
+                                                                            }}
+                                                                        ></div>
                                                                     </Col>
                                                                 </Row>
                                                             </div>
-                                                            {/* // );
-                          // })
-                          // } */}
                                                         </div>
                                                     </Accordion.Body>
                                                 </Accordion.Item>
@@ -213,7 +236,7 @@ const FaqPage = () => {
                         </Row>
                     </div>
                 ) : (
-                    ""
+                    ''
                 )}
             </div>
         </Layout>

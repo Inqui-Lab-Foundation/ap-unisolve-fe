@@ -34,7 +34,7 @@ export const teacherLoginUserError = (message) => async (dispatch) => {
 
 export const getTeacherByID = (id) => async (dispatch) => {
     try {
-       
+
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
             .get(`${URL.getTeacherById}${id}`, axiosConfig)
@@ -55,7 +55,66 @@ export const getTeacherByID = (id) => async (dispatch) => {
         dispatch(getTeacherByIdSuccess(""));
     }
 };
-export const teacherLoginUser = (data, history,module) => async (dispatch) => {
+export const teacherCreateMultipleStudent = (data, history,setIsClicked) => async () => {
+    try {
+
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        const result = await axios
+            .post(`${URL.createMultiStudent}`, data, axiosConfig)
+            .then((user) => user)
+            .catch((err) => {
+                return err.response;
+            });
+        if (result && result.status === 201) {
+            openNotificationWithIcon(
+                'success',
+                result.data.data
+            );
+            history.push("/teacher/teamlist");
+            setIsClicked(false);
+        } else {
+            openNotificationWithIcon(
+                'error',
+                'Something went wrong'
+            );
+            setIsClicked(false);
+        }
+    } catch (error) {
+        openNotificationWithIcon(
+            'error',
+            error?.response?.data?.message
+        );
+        setIsClicked(false);
+    }
+};
+export const studentResetPassword = (body) => async () => {
+    try {
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        const result = await axios
+            .put(`${URL.studentResetPwd}`, body, axiosConfig)
+            .then((user) => user)
+            .catch((err) => {
+                return err.response;
+            });
+        if (result && result.status === 200) {
+            openNotificationWithIcon(
+                'success',
+                'Password Successfully Updated'
+            );
+        } else {
+            openNotificationWithIcon(
+                'error',
+                'Something went wrong'
+            );
+        }
+    } catch (error) {
+        openNotificationWithIcon(
+            'error',
+            'Something went wrong'
+        );
+    }
+};
+export const teacherLoginUser = (data, history, module) => async (dispatch) => {
     try {
         const loginData = {
             ...data,
@@ -72,7 +131,7 @@ export const teacherLoginUser = (data, history,module) => async (dispatch) => {
         if (result && result.status === 200) {
             const item = result.data;
             setCurrentUser(item);
-            localStorage.setItem('module',module);
+            localStorage.setItem('module', module);
             dispatch(teacherLoginUserSuccess(result));
             history.push('/teacher/dashboard');
         } else {

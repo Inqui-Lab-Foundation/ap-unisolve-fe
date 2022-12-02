@@ -23,6 +23,7 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
+// import { useHistory } from 'react-router-dom';
 
 const TicketsPage = (props) => {
     const currentUser = getCurrentUser('current_user');
@@ -33,6 +34,7 @@ const TicketsPage = (props) => {
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
     const [SRows, setSRows] = React.useState([]);
+    // const list = JSON.parse(localStorage.getItem('list'));
 
     React.useEffect(() => {
         const timeout = setTimeout(() => {
@@ -55,6 +57,13 @@ const TicketsPage = (props) => {
         props.getSchoolRegistationBulkUploadActions('i');
     }, []);
 
+    const handleEdit = (item) => {
+        history.push({
+            pathname: '/admin/register-edit-schools',
+            item: item
+        });
+        localStorage.setItem('listId', JSON.stringify(item));
+    };
     const handleStatusUpdate = (item, itemS) => {
         const body = {
             status: itemS
@@ -183,28 +192,40 @@ const TicketsPage = (props) => {
             }
         ]
     };
-
     const SchoolsData = {
         data: props.schoolsRegistrationList,
         columns: [
             {
-                name: 'S.No.',
+                name: 'S.No',
                 selector: 'organization_id',
-                width: '10%'
-                // center: true,
+                width: '6%'
             },
             {
                 name: 'UDISE Code',
                 selector: 'organization_code',
                 sortable: true,
-                width: '30%'
-                // center: true,
+                width: '13%'
             },
             {
                 name: 'Institution Name',
                 selector: 'organization_name',
-                width: '40%'
-                // center: true,
+                width: '15%'
+            },
+            {
+                name: 'Principle Name',
+                selector: 'principal_name',
+                width: '15%'
+            },
+            {
+                name: 'Principle Mobile',
+                selector: 'principal_mobile',
+                width: '15%'
+            },
+
+            {
+                name: 'State',
+                selector: 'state',
+                width: '15%'
             },
             {
                 name: 'Status',
@@ -218,13 +239,38 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width: '20%'
-                // center: right,
+                width: '7%'
+            },
+            {
+                name: 'Actions',
+                selector: 'action',
+                width: '14%',
+                cell: (record) => [
+                    <>
+                        {/* <a onClick={() => handleEdit(record)}>
+                            <i
+                                key={record.list}
+                                className="fa fa-edit"
+                                style={{ marginRight: '10px' }}
+                            />
+                        </a> */}
+                        <Link
+                            exact="true"
+                            key={record}
+                            onClick={() => handleEdit(record)}
+                            style={{ marginRight: '10px' }}
+                        >
+                            <div className="btn btn-primary btn-lg mx-2">
+                                Edit
+                            </div>
+                        </Link>
+                    </>
+                ]
             }
         ]
     };
 
-    console.log(reqSchoolsResponse);
+    console.log('reqSchoolsResponse', SchoolsData);
 
     return (
         <Layout>
@@ -248,14 +294,14 @@ const TicketsPage = (props) => {
                                 </div>
                             ) : (
                                 <div className="d-flex justify-content-end">
-                                    <Button
+                                    {/* <Button
                                         label="Import"
                                         btnClass="primary-outlined"
                                         size="small"
                                         shape="btn-square"
                                         Icon={BsUpload}
                                         onClick={() => setImportPopup(true)}
-                                    />
+                                    /> */}
 
                                     <Button
                                         label="Add New School"

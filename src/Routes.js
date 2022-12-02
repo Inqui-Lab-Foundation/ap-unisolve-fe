@@ -41,7 +41,8 @@ import TeamMemberPage from './Student/Pages/TeamsMentors/TeamMember';
 import AddNewMember from './Student/Pages/TeamsMentors/AddNewMember';
 import EditMember from './Student/Pages/TeamsMentors/EditMember';
 // import IdeasPage from './Student/Pages/Ideas/IdeasPage';
-import IdeasPageNew from './Student/Pages/Ideas/IdeasPageCopy';
+import IdeasPageNew from './Student/Pages/Ideas/IdeaSubmission';
+import SDG from './Student/Pages/Ideas/SDG';
 import SubmittedIdeas from './Student/Pages/Ideas/SubmittedIdeas';
 import TicketViewDetails from './Student/Pages/HelpPages/TicketViewDetails';
 // ADMIN ROUTES
@@ -109,6 +110,7 @@ import TeacherTeamList from './Teachers/Teams/Ticket';
 import TeacherCreateTeam from './Teachers/Teams/CreateTeam';
 import TeacherPreservey from './Teachers/PreSurvey/PreSurvey';
 import StudentPreservey from './Student/PreSurvey/PreSurvey';
+import StudentCertificate from './Student/Pages/Certificate/MyCertificate';
 import TeacherEditTeam from './Teachers/Teams/EditTeam';
 import TeacherTeamMember from './Teachers/Teams/CreateTeamMember';
 import TeacherViewTeamMember from './Teachers/Teams/ViewTeamMember';
@@ -123,8 +125,13 @@ import MyCertificate from './Teachers/Certificate/MyCertificate';
 import PageNotFound from '../src/PageNotFound';
 import ChangePSWModal from './Teachers/ChangePSWModal';
 import Translation from './Admin/Translation/Translation';
-import EditTranslation from './Admin/Translation/EditTranslation'; 
-import CreateTranslation from './Admin/Translation/CreateTranslation'; 
+import EditTranslation from './Admin/Translation/EditTranslation';
+import CreateTranslation from './Admin/Translation/CreateTranslation';
+//import IdeasubmissionunderCOn from './Student/Ideasubsaticundercon';
+// import DummyStuMyCer from './Student/DummyStudentMyCertificate';
+
+import EditSchool from './Admin/Schools/EditSchool';
+
 
 const Routers = () => {
     // const history = useHistory();
@@ -198,6 +205,12 @@ const Routers = () => {
                         exact
                         path="/challenges"
                         component={IdeasPageNew}
+                        //component={IdeasubmissionunderCOn}
+                    />
+                    <ProtectedRoute
+                        exact
+                        path="/challenge-initiation"
+                        component={SDG}
                     />
                     <ProtectedRoute path="/ideasPage" component={Ideas} />
                     <ProtectedRoute
@@ -581,7 +594,7 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
-                        path="/teacher/create-team-member"
+                        path="/teacher/create-team-member/:id/:count"
                         component={TeacherTeamMember}
                     />
                     <ProtectedRoute
@@ -649,9 +662,32 @@ const Routers = () => {
                         path="/teacher/my-certificate"
                         component={MyCertificate}
                     />
-                    <ProtectedRoute exact={true} path="/admin/translation" component={Translation} />
-                    <ProtectedRoute exact={true} path="/admin/edit-translation" component={EditTranslation} />
-                    <ProtectedRoute exact={true} path="/admin/create-translation" component={CreateTranslation} />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/student/my-certificate"
+                        component={StudentCertificate}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/register-edit-schools"
+                        component={EditSchool}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/translation"
+                        component={Translation}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/edit-translation"
+                        component={EditTranslation}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/create-translation"
+                        component={CreateTranslation}
+                    />
                     <Route component={PageNotFound} path="*" />
                 </Switch>
             </Router>

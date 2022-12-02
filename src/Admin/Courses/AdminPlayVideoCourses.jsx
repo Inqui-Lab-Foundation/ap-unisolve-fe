@@ -77,6 +77,7 @@ const AdminPlayVideoCourses = (props) => {
     const [item, setItem] = useState('');
     const [adminCourseDetails, setAdminCourseDetails] = useState('');
     const language = useSelector(state=>state?.admin?.adminLanguage);
+    const scrollRef = React.createRef();
 
 
     useEffect(() => {
@@ -274,6 +275,7 @@ const AdminPlayVideoCourses = (props) => {
     };
 
     const handleSelect = (topicId, couseId, type) => {
+        scrollRef.current.scrollIntoView(); 
         setCourseId(couseId);
         const topic_Index =
             setTopicArrays &&
@@ -465,12 +467,12 @@ const AdminPlayVideoCourses = (props) => {
     //   worksheetId.data[0].attachments;
     return (
         <Layout>
-            <div className="courses-page">
+            <div className="courses-page" ref={scrollRef}>
                 <Row className="courses-head view-head py-5">
                     <Col md={12} lg={9} className="mb-5 mb-md-5 mb-lg-0">
-                        <p className="course-breadcrum">
+                        {/* <p className="course-breadcrum">
                             Courses <BsChevronRight /> Courses details
-                        </p>
+                        </p> */}
                         <div className="courses-type">
                             <BsLayoutTextSidebarReverse />
                             <span className="card-type">{title}</span>
@@ -729,7 +731,7 @@ const AdminPlayVideoCourses = (props) => {
                                                             <Button
                                                                 button="submit"
                                                                 label="Download Worksheet"
-                                                                btnClass="primary mt-4"
+                                                                btnClass="primary mt-4 mb-2"
                                                                 size="small"
                                                                 style={{
                                                                     marginRight:

@@ -26,6 +26,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { FaRegClock } from 'react-icons/fa';
 import moment from 'moment';
+import { useLayoutEffect } from 'react';
 
 const TicketResponse = (props) => {
     const { search } = useLocation();
@@ -38,17 +39,9 @@ const TicketResponse = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         dispatch(getSupportTicketById(id, language));
     }, [dispatch, id]);
-
-    // console.log(supportTicket);
-
-    // useEffect(() => {
-    //     dispatch(getSupportResponsesTicketById());
-    // }, []);
-
-    // console.log("hello 43",supportTicketRespnses);
 
     const headingDetails = {
         title: 'Answer Ticket',
@@ -67,11 +60,10 @@ const TicketResponse = (props) => {
             }
         ]
     };
-
     const formik = useFormik({
         initialValues: {
             ansDetails: '',
-            selectStatus: ''
+            selectStatus:'' 
         },
 
         validationSchema: Yup.object({
@@ -99,7 +91,7 @@ const TicketResponse = (props) => {
     });
 
     const selectProgress = {
-        label: 'Select Status',
+        label: supportTicket && supportTicket.status ? supportTicket.status : 'Select Status',
         options: [
             { label: 'OPEN', value: 'OPEN' },
             { label: 'INPROGRESS', value: 'INPROGRESS' },
@@ -107,9 +99,6 @@ const TicketResponse = (props) => {
         ],
         className: 'defaultDropdown'
     };
-
-    // console.log(formik.errors);
-
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -258,6 +247,7 @@ const TicketResponse = (props) => {
                                             </Label>
 
                                             <Col className="form-group" md={12}>
+                                                {console.log(formik.values)}
                                                 <DropDownWithSearch
                                                     {...selectProgress}
                                                     onBlur={formik.handleBlur}

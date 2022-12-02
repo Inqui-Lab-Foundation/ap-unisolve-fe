@@ -41,7 +41,7 @@ const ChangePSWModal = (props) => {
             if (values.newPassword.length < 8) {
                 SetError('New Password must be 8-character minimum');
             } else if (values.oldPassword === values.newPassword) {
-                SetError('Old Password and New Passwordare same');
+                SetError('Old Password and New Password are same');
             } else if (values.newPassword !== values.confirmPassword) {
                 SetError('New Password and Confirm Password not same');
             } else {
@@ -86,8 +86,7 @@ const ChangePSWModal = (props) => {
                         }, 1000);
                     })
                     .catch(function (error) {
-                        // setErrorText("User's current password doesn't match");
-                        console.log(error);
+                        SetError(error.response.data.message);
                     });
             }
         }
@@ -122,7 +121,7 @@ const ChangePSWModal = (props) => {
             <div className="container ChangePSWModal mb-5">
                 <Row className="mt-5 change-password">
                     <Col md={12}>
-                        <h5>{t('changepswd.Change your password')}</h5>
+                        <h2>{t('changepswd.Change your password')}</h2>
                         <p>
                             {t(
                                 'changepswd.password_helps_prevent_unauthorized'
@@ -135,7 +134,9 @@ const ChangePSWModal = (props) => {
                             <div className="form-row row mb-5 mt-3">
                                 <Col className="form-group" md={12}>
                                     <Label className="mb-2" htmlFor="Password">
-                                        {t('changepswd.Current_password')}
+                                        <h3>
+                                            {t('changepswd.Current_password')}
+                                        </h3>
                                     </Label>
                                     <InputBox
                                         {...oldPassword}
@@ -161,7 +162,7 @@ const ChangePSWModal = (props) => {
                                         className="mb-2"
                                         htmlFor="newPassword"
                                     >
-                                        {t('changepswd.New_password')}
+                                        <h3>{t('changepswd.New_password')}</h3>
                                     </Label>
                                     <InputBox
                                         {...newPassword}
@@ -189,7 +190,11 @@ const ChangePSWModal = (props) => {
                                         className="mb-2"
                                         htmlFor="confirmPassword"
                                     >
-                                        {t('changepswd.Verify_New_password')}
+                                        <h3>
+                                            {t(
+                                                'changepswd.Verify_New_password'
+                                            )}
+                                        </h3>
                                     </Label>
                                     <InputBox
                                         {...confirmPassword}
@@ -208,8 +213,12 @@ const ChangePSWModal = (props) => {
                                     ) : null}
                                 </Col>
                             </div>
+                            <b style={{color: 'red'}}>
                             {error}
-                            {responce}
+                            </b>
+                            <b style={{color: '#3BB143'}}>
+                                {responce}
+                            </b>
                             <div
                                 className="swal2-actions"
                                 style={{

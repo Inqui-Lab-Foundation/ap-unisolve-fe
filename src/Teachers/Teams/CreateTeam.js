@@ -40,12 +40,12 @@ const CreateTeam = (props) => {
             //     .matches(/^[A-Za-z ]*$/, 'Please enter Team name')
             //     .max(40)
             //     .required('Please enter Team name')
-            teamName: Yup.string().required('Please enter Team name')
+            teamName: Yup.string().required('Please enter Team name').matches(/^[A-Za-z0-9 ]*$/, 'Please enter only alphanumeric characters').trim()
         }),
 
         onSubmit: (values) => {
             const body = JSON.stringify({
-                mentor_id: JSON.stringify(currentUser.data[0].user_id),
+                mentor_id: JSON.stringify(currentUser.data[0].mentor_id),
                 team_name: values.teamName
             });
             var config = {

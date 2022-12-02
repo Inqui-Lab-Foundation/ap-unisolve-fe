@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
-import React, { useState } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { useLayoutEffect, useState } from 'react';
+import { Row, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
@@ -24,12 +24,20 @@ import { teacherLoginUser } from '../redux/actions';
 import CryptoJS from 'crypto-js';
 import ForgotPassword from './ForgotPassword';
 import { openNotificationWithIcon } from '../helpers/Utils';
+import i18next from 'i18next';
 
 const LoginNew = (props) => {
     const { t } = useTranslation();
     const history = useHistory();
     const [password, handlePassword] = useState('password');
     const [showPopUp, setShowPopUp] = useState(false);
+    useLayoutEffect(() => {
+        i18next.changeLanguage('en');
+        const moduleName = localStorage.getItem("module");
+        if (localStorage.getItem("current_user") && localStorage.getItem("module")) {
+            moduleName === "MENTOR" ? history.push("/teacher/dashboard") : moduleName === "ADMIN" ? history.push("/admin/dashboard") : history.push("/dashboard");
+        }
+    }, []);
     
     const formik = useFormik({
         initialValues: {
@@ -299,7 +307,9 @@ const LoginNew = (props) => {
                                                         onClick={handleOnClick}
                                                         className="text-link pt-1"
                                                     >
-                                                        ForgotPassword
+                                                        {t(
+                                                                'loginPage.Forgot_password'
+                                                            )}
                                                     </Link>
                                                 </Col>
                                             </Row>
@@ -337,7 +347,7 @@ const LoginNew = (props) => {
                                 </Form>
                             </Col>
                         </Row>
-                    </Col>
+                    </Col> 
                 </Row>
             </div>
             {showPopUp && (

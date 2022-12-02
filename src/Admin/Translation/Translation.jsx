@@ -45,7 +45,7 @@ const Translation = (props) => {
             });
     }
     var translationsListArray = {
-        data: translationList.length > 0 && translationList,
+        data: translationList && translationList.length > 0 ? translationList : [],
         columns: [
             {
                 name: 'From',
@@ -194,7 +194,7 @@ const Translation = (props) => {
                                 data={rows}
                                 defaultSortField="id"
                                 defaultSortAsc={false}
-                                // pagination
+                                pagination
                                 highlightOnHover
                                 fixedHeader
                                 subHeaderAlign={Alignment.Center}

@@ -14,14 +14,14 @@ import {
     FaShieldVirus,
     // FaQuestionCircle,
     FaBars,
-    FaHouseUser
+    FaHouseUser,
+    FaCertificate
 } from 'react-icons/fa';
-import { RiSurveyFill} from 'react-icons/ri';
-
+import { RiSurveyFill, RiLockPasswordFill } from 'react-icons/ri';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-import Logo from "../assets/media/tn-brands/UPSHIFT_BLACK.png"; 
+import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 
 import TicketIcon from '../assets/media/ticket.png';
 import FaqIcon from '../assets/media/faq.png';
@@ -29,19 +29,21 @@ import { KEY, URL } from '../constants/defaultValues';
 import { getNormalHeaders } from '../helpers/Utils';
 import axios from 'axios';
 import { getLanguage } from '../constants/languageOptions';
-import { useSelector } from 'react-redux';
-import { RiLogoutBoxRFill} from 'react-icons/ri';
-import {   logout } from '../helpers/Utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { RiLogoutBoxRFill } from 'react-icons/ri';
+import { logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { setPresurveyStatus } from '../redux/studentRegistration/actions';
 
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
-
     const { t } = useTranslation();
     const history = useHistory();
-    const language = useSelector(state=>state?.studentRegistration?.studentLanguage);
-
-
+    const dispatch = useDispatch();
+    const language = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
+    );
+    
     const location = useLocation();
 
     //create initial menuCollapse state using useState hook
@@ -53,14 +55,20 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         setMenuCollapse(val);
         // menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
     };
-    const [presurveyStatus, setpresurveyStatus] = useState("");
-    const checkPresurvey = ()=>{
+    const [presurveyStatus, setpresurveyStatus] = useState('');
+    const checkPresurvey = () => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         axios
-            .get(`${URL.getStudentPreSurveyList}?role=STUDENT&${getLanguage(language)}`, axiosConfig)
+            .get(
+                `${URL.getStudentPreSurveyList}?role=STUDENT&${getLanguage(
+                    language
+                )}`,
+                axiosConfig
+            )
             .then((preSurveyRes) => {
                 if (preSurveyRes?.status == 200) {
                     setpresurveyStatus(preSurveyRes.data.data[0].progress);
+                    dispatch(setPresurveyStatus(preSurveyRes.data.data[0].progress));
                 }
             })
             .catch((err) => {
@@ -80,10 +88,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         }
     });
     const handleClick = (e) => {
-        if(presurveyStatus !== "COMPLETED") e.preventDefault();
+        if (presurveyStatus !== 'COMPLETED') e.preventDefault();
     };
     const handleLogout = (e) => {
-        logout(history, t,"student");
+        logout(history, t, 'student');
         e.preventDefault();
     };
     return (
@@ -96,8 +104,11 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         >
             <SidebarHeader>
                 <div className="sidebar-header header-comp sticky-top">
-                    <div className="d-flex logo-section" style={{height:"5rem"}}>
-                        <Link to={"/dashboard"} exact className='d-flex'>
+                    <div
+                        className="d-flex logo-section"
+                        style={{ height: '5rem' }}
+                    >
+                        <Link to={'/dashboard'} exact className="d-flex">
                             {menuCollapse ? (
                                 <img
                                     src={Logo}
@@ -132,14 +143,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         {menuCollapse ? '' : <span>MAIN MENU</span>}
                     </MenuItem> */}
                     <MenuItem
-                        icon={<RiSurveyFill/>}
+                        icon={<RiSurveyFill />}
                         className={
                             location.pathname === '/student/pre-survey' &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/student/pre-survey'} >
-                            
+                        <NavLink exact={true} to={'/student/pre-survey'}>
                             {/* <NavLink exact={true} to={'/student/pre-survey'} className={`${setpresurveyStatus ? 'noHover' : ""}`}> */}
                             {/* Pre Survey */}
                             {t('home.pre_survey')}
@@ -154,13 +164,14 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         }
                         // suffix={<span className="badge red">new1</span>}
                     >
-                      
-                        <NavLink  exact={true} onClick={handleClick} to={'/dashboard'}>
+                        <NavLink
+                            exact={true}
+                            onClick={handleClick}
+                            to={'/dashboard'}
+                        >
                             {/* Dashboard */}
                             {t('home.dashboard')}
                         </NavLink>
-                       
-                        
                     </MenuItem>
                     <MenuItem
                         icon={<FaTh />}
@@ -169,7 +180,11 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} onClick={handleClick} to={`/playCourse/${1}`}>
+                        <NavLink
+                            exact={true}
+                            onClick={handleClick}
+                            to={`/playCourse/${1}`}
+                        >
                             {/* Courses */}
                             {t('home.courses')}
                         </NavLink>
@@ -195,32 +210,20 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             onClick={handleClick}
                             to={'/badges'}
                         >
-                            Badges
+                            {t('home.badges')}
                         </NavLink>
                     </MenuItem>
                     <MenuItem
                         icon={<FaLightbulb />}
                         className={
-                            location.pathname === '/challenges' && 'sidebar-active'
-                        }
-                    >
-                        <NavLink exact={true} onClick={handleClick} to={'/challenges'}>
-                            {/* Challenges */}
-                            Idea Submission
-                        </NavLink>
-                    </MenuItem>
-                    {/* <MenuItem
-                        icon={<HiOutlineUserGroup />}
-                        className={
-                            location.pathname === '/discussionForum' &&
+                            (location.pathname === '/challenges'|| location.pathname === '/challenge-initiation') &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} onClick={handleClick} to={'/discussionForum'}>
-                            Discussion Forum
+                        <NavLink exact={true} onClick={handleClick} to={'/challenges'}>
+                            {t('home.idea_submission')}
                         </NavLink>
-                    </MenuItem> */}
-                    {/*  */}
+                    </MenuItem>
                     <MenuItem
                         icon={
                             <img
@@ -238,23 +241,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {t('home.faq')}
                         </NavLink>
                     </MenuItem>
-                    {/* <MenuItem
-                        icon={
-                            <img
-                                src={TicketIcon}
-                                className="img-fluid"
-                                alt="ticket"
-                            />
-                        }
-                        className={
-                            location.pathname === '/tickets' && 'sidebar-active'
-                        }
-                    >
-                        <NavLink exact={true} onClick={handleClick} to={'/tickets'}>
-                            Tickets
-                        </NavLink>
-                    </MenuItem> */}
-                    {/* post */}
                     <MenuItem
                         icon={
                             <img
@@ -264,18 +250,41 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             />
                         }
                         className={
-                            location.pathname === '/student/post-survey' && 'sidebar-active'
+                            location.pathname === '/student/post-survey' &&
+                            'sidebar-active'
                         }
                     >
-                        <NavLink exact={true}  onClick={handleClick} to={'/student/post-survey'}>
+                        <NavLink
+                            exact={true}
+                            onClick={handleClick}
+                            to={'/student/post-survey'}
+                        >
                             {/* PostSurvey */}
                             {t('home.post_survey')}
                         </NavLink>
                     </MenuItem>
+
+                    <MenuItem
+                        icon={<FaCertificate />}
+                        className={
+                            location.pathname === '/student/my-certificate' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            onClick={(e) => handleClick(e, '')}
+                            // onClick={(e) => handleClick(e, 'certificate')}
+                            to={'/student/my-certificate'}
+                        >
+                            {t('teacher.certificate')}
+                        </NavLink>
+                    </MenuItem>
+
                     <MenuItem
                         icon={<FaHouseUser />}
                         className={
-                            location.pathname === '/teacher/my-profile' &&
+                            location.pathname === '/my-profile' &&
                             'sidebar-active'
                         }
                     >
@@ -284,24 +293,24 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             // onClick={(e) => handleClick(e, '')}
                             to={'/my-profile'}
                         >
-                            {t('teacher.profile')}
+                            {t('home.my_profile')}
                         </NavLink>
                     </MenuItem>
-                    {/* <MenuItem
+                    <MenuItem
                         icon={<RiLockPasswordFill />}
                         className={
-                            location.pathname === '/teacher/change-password' &&
+                            location.pathname === '/change-password' &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
-                            // onClick={(e) => handleClick(e, '')}
+                            //onClick={(e) => handleClick(e, '')}
                             to={'/change-password'}
                         >
-                            {t('teacher.password')}
+                            {t('home.change_pass')}
                         </NavLink>
-                    </MenuItem> */}
+                    </MenuItem>
                     <MenuItem
                         icon={<RiLogoutBoxRFill />}
                         className={location.pathname === '' && 'sidebar-active'}

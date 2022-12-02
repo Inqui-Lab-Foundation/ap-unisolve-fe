@@ -34,14 +34,14 @@ import IdeaBulb from '../assets/media/home/idea-bulb.png';
 
 // ta brans
 import SSA_Tamilnadu from '../assets/media/tn-brands/1_SSA_Tamilnadu.jpg';
-import SIDP_tamilnadu from '../assets/media/tn-brands/2_SIDP_tamilnadu.jpg';
+import SIC_tamilnadu from '../assets/media/tn-brands/2_SIC_tamilnadu.jpg';
 import EDII_tamilnadu from '../assets/media/tn-brands/3_EDII_tamilnadu.jpg';
 import UpShift_Tamilnadu from '../assets/media/tn-brands/4_UpShift_Tamilnadu.jpg';
 import Yuwaah_Tamilnadu from '../assets/media/tn-brands/5_Yuwaah_Tamilnadu.jpg';
 import IIF_Tamilnadu from '../assets/media/tn-brands/7_IIF_Tamilnadu.jpg';
 import SS_Tamilnadu from '../assets/media/tn-brands/8_SS_Tamilnadu.jpg';
 import Unicef_OOI_Tamilnadu from '../assets/media/tn-brands/9_Unicef OOI_Tamilnadu.jpg';
-import LogoTn from '../assets/media/tn-brands/UPSHIFT_SIDP_TN_logo.png';
+import LogoTn from '../assets/media/tn-brands/UPSHIFT_SIC_TN_logo.png';
 
 import Blog1 from '../assets/media/home/blog/walker_elders.jpg';
 import Blog2 from '../assets/media/home/blog/agriculture_bag.jpeg';
@@ -149,9 +149,9 @@ const Home = () => {
         },
         {
             id: 2,
-            key: 'SIDP',
+            key: 'SIC',
             // imageUrl: Telangana
-            imageUrl: SIDP_tamilnadu
+            imageUrl: SIC_tamilnadu
         },
         {
             id: 3,

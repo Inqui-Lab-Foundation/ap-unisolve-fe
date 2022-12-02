@@ -366,7 +366,7 @@ const EditFaq = (props) => {
                                             </Label>
                                             <Col className="form-group" md={12}>
                                                 <div
-                                                    style={{ height: '211px' }}
+                                                    // style={{ height: '211px' }}
                                                 >
                                                     <RichText
                                                         name="answer"
