@@ -49,7 +49,7 @@ import Yuwaah_Tamilnadu from '../assets/media/tn-brands/5_Yuwaah_ts.png';
 import IIF_Tamilnadu from '../assets/media/tn-brands/6_IIF_ts.png';
 import SS_Tamilnadu from '../assets/media/tn-brands/7_SS_ts.png';
 import Unicef_OOI_Tamilnadu from '../assets/media/tn-brands/8_Unicef_ts.png';
-//import YHub from '../assets/media/tn-brands/9_Y_hub.png';
+import scert from '../assets/media/tn-brands/SCERT.jpg';
 import LogoTn from '../assets/media/tn-brands/AP_logo.png';
 
 import Blog1 from '../assets/media/home/blog/walker_elders.jpg';
@@ -171,12 +171,12 @@ const Home = () => {
         //     // imageUrl: Unicef
         //     imageUrl: SSA_Tamilnadu
         // },
-        // {
-        //     id: 2,
-        //     key: 'YHub',
-        //     // imageUrl: Congnizant
-        //     imageUrl: YHub
-        // },
+        {
+            id: 2,
+            key: 'scert',
+            // imageUrl: Congnizant
+            imageUrl: scert
+        },
         {
             id: 2,
             key: 'SIC',
