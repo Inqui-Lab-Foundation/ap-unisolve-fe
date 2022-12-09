@@ -49,7 +49,7 @@ import Yuwaah_Tamilnadu from '../assets/media/tn-brands/5_Yuwaah_ts.png';
 import IIF_Tamilnadu from '../assets/media/tn-brands/6_IIF_ts.png';
 import SS_Tamilnadu from '../assets/media/tn-brands/7_SS_ts.png';
 import Unicef_OOI_Tamilnadu from '../assets/media/tn-brands/8_Unicef_ts.png';
-import scert from '../assets/media/tn-brands/SCERT.jpg';
+import scert from '../assets/media/tn-brands/scert_amaravathi.png';
 import LogoTn from '../assets/media/tn-brands/AP_logo.png';
 
 import Blog1 from '../assets/media/home/blog/walker_elders.jpg';
@@ -984,7 +984,7 @@ const Home = () => {
                                                 <img
                                                     src={testimonial.imageUrl}
                                                     className="img-fluid rounded-circle"
-                                                    alt="How Unisolve Works"
+                                                    alt="Partner"
                                                 />
                                             </figure>
                                             <CardBody>
@@ -1036,7 +1036,7 @@ const Home = () => {
                                             <img
                                                 src={partners.imageUrl}
                                                 className="img-fluid mx-1"
-                                                alt="How Unisolve Works"
+                                                alt="Partner"
                                             />
                                         </figure>
                                     );
@@ -1050,7 +1050,7 @@ const Home = () => {
                                                 <img
                                                     src={partners.imageUrl}
                                                     className="img-fluid mx-1"
-                                                    alt="How Unisolve Works"
+                                                    alt="Partner"
                                                 />
                                             </figure>
                                         </Col>
