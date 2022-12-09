@@ -62,7 +62,7 @@ function StepTwo({
             full_name: Yup.string()
                 .trim()
                 .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Not allowed')
+                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
                 .required('Required'),
             mobile: Yup.string()
                 .required('required')
