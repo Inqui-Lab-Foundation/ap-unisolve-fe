@@ -989,7 +989,7 @@ const Home = () => {
                                                 <img
                                                     src={testimonial.imageUrl}
                                                     className="img-fluid rounded-circle"
-                                                    alt="How Unisolve Works"
+                                                    alt="Partner"
                                                 />
                                             </figure>
                                             <CardBody>
@@ -1041,7 +1041,7 @@ const Home = () => {
                                             <img
                                                 src={partners.imageUrl}
                                                 className="img-fluid mx-1"
-                                                alt="How Unisolve Works"
+                                                alt="Partner"
                                             />
                                         </figure>
                                     );
@@ -1055,7 +1055,7 @@ const Home = () => {
                                                 <img
                                                     src={partners.imageUrl}
                                                     className="img-fluid mx-1"
-                                                    alt="How Unisolve Works"
+                                                    alt="Partner"
                                                 />
                                             </figure>
                                         </Col>
