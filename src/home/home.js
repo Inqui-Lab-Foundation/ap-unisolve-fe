@@ -88,6 +88,10 @@ const Home = () => {
                 ? history.push('/teacher/dashboard')
                 : moduleName === 'ADMIN'
                 ? history.push('/admin/dashboard')
+                : moduleName === 'EVALUATOR'
+                ? history.push('/evaluator/submitted-ideas')
+                : moduleName === 'EADMIN'
+                ? history.push('/eadmin/dashboard')
                 : history.push('/dashboard');
         }
     }, []);
@@ -153,7 +157,7 @@ const Home = () => {
 
     useLayoutEffect(() => {
         dispatch(getDistrictData());
-        dispatch(getDistrictLiveData());
+        // dispatch(getDistrictLiveData());
     }, []);
 
     const toggle = (id) => {
@@ -407,7 +411,7 @@ const Home = () => {
                             {t('home_nav_links.faq')}
                         </AnchorLink>
                     </NavItem>
-                     <NavItem className="mt-3 ms-3">
+                    <NavItem className="mt-3 ms-3">
                         <LanguageSelectorComp module="general" />
                     </NavItem>
                 </Nav>
@@ -534,7 +538,9 @@ const Home = () => {
                                                     label={t('home_tl.login')}
                                                     btnClass="primary "
                                                     onClick={() => {
-                                                        history.push("/teacher");
+                                                        history.push(
+                                                            '/teacher'
+                                                        );
                                                         i18next.changeLanguage(
                                                             'en'
                                                         );
@@ -671,19 +677,18 @@ const Home = () => {
                                         size="small"
                                     />
                                 </Link> */}
-                            </Col>
-                            <Col md={12} lg={6}>
-                                <figure className="my-0">
-                                    <img
-                                        src={LearnMentor}
-                                        alt="learn"
-                                        className="img-fluid"
-                                    />
-                                </figure>
-                            </Col>
+                        </Col>
+                        <Col md={12} lg={6}>
+                            <figure className="my-0">
+                                <img
+                                    src={LearnMentor}
+                                    alt="learn"
+                                    className="img-fluid"
+                                />
+                            </figure>
+                        </Col>
                     </Row>
                 </Container>
-                
             </section>
             {/* <section className="mentor-student">
         <Container className="both">
@@ -1285,7 +1290,7 @@ const Home = () => {
                         </Col>
                     </Row>
                 </Container>
-                <Row className="w-100 mt-5 footer-sub">
+                <Row className="w-100 mt-5 mx-0 footer-sub">
                     <Col md={12} className="text-center">
                         <p className="my-0 py-3 text-white text-center">
                             © UNISOLVE, UNICEF {new Date().getFullYear()}.{' '}

@@ -80,7 +80,7 @@ const EditTeamMember = (props) => {
                     teamMemberData.student_id,
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${currentUser.data[0].token}`
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
                 },
                 data: body
             };

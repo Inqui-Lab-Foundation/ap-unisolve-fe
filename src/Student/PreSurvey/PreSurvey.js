@@ -28,7 +28,7 @@ import { getLanguage } from '../../constants/languageOptions';
 import { useDispatch, useSelector } from 'react-redux';
 import getStart from '../../assets/media/getStart.png';
 import { useTranslation } from 'react-i18next';
-import { updateStudentBadges } from '../../redux/studentRegistration/actions';
+import { getPresurveyData, getStudentDashboardStatus, updateStudentBadges } from '../../redux/studentRegistration/actions';
 //import { Modal } from 'react-bootstrap';
 //import ChildrensDaysGif from '../../assets/media/childrensdays.gif';
 
@@ -59,17 +59,16 @@ import { updateStudentBadges } from '../../redux/studentRegistration/actions';
 
 const PreSurvey = () => {
     const { t } = useTranslation();
-    const [preSurveyList, setPreSurveyList] = useState([]);
     const currentUser = getCurrentUser('current_user');
-    const [quizSurveyId, setQuizSurveyId] = useState(0);
-    const [preSurveyStatus, setPreSurveyStatus] = useState('COMPLETED');
     const history = useHistory();
     const dispatch = useDispatch();
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
+    const preSurveyStatus = useSelector((state) => state?.studentRegistration?.presuveyStatusGl);
+    const preSurveyList = useSelector((state) => state?.studentRegistration?.preSurveyList);
+    const quizSurveyId = useSelector((state) => state?.studentRegistration?.quizSurveyId);
     const [show, setShow] = useState(false);
-    //const [greetChildrensDay, setGreetChildrensDay] = useState(false);
 
     const formik = useFormik({
         initialValues: {},
@@ -89,7 +88,7 @@ const PreSurvey = () => {
             if (preSurveyList.length != submitData.responses.length) {
                 openNotificationWithIcon(
                     'warning',
-                    'Please Attempt All Questions..!!',
+                    t('student.attempt_all_questions'),
                     ''
                 );
             } else {
@@ -104,13 +103,15 @@ const PreSurvey = () => {
                         if (preSurveyRes?.status == 200) {
                             openNotificationWithIcon(
                                 'success',
-                                'Presurvey has been submitted successfully',
+                                t('student.presurver_scc_sub'),
                                 ''
                             );
+                            dispatch(getPresurveyData(language));
+                            dispatch(getStudentDashboardStatus(currentUser?.data[0]?.user_id, language));
                             dispatch(
                                 updateStudentBadges(
                                     { badge_slugs: ['survey_champ'] },
-                                    currentUser.data[0].user_id,
+                                    currentUser?.data[0]?.user_id,
                                     language,t
                                 )
                             );
@@ -128,27 +129,6 @@ const PreSurvey = () => {
         }
     });
 
-    useEffect(() => {
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        axios
-            .get(
-                `${URL.getStudentPreSurveyList}?role=STUDENT&${getLanguage(
-                    language
-                )}`,
-                axiosConfig
-            )
-            .then((preSurveyRes) => {
-                if (preSurveyRes?.status == 200) {
-                    setQuizSurveyId(preSurveyRes.data.data[0].quiz_survey_id);
-                    setPreSurveyStatus(preSurveyRes.data.data[0].progress);
-                    let allQuestions = preSurveyRes.data.data[0];
-                    setPreSurveyList(allQuestions.quiz_survey_questions);
-                }
-            })
-            .catch((err) => {
-                return err.response;
-            });
-    }, [language]);
 
     const handleStart = () => {
         setShow(true);
@@ -164,6 +144,9 @@ const PreSurvey = () => {
             //setGreetChildrensDay(true);
         }
     }, []);
+    useEffect(() => {
+        dispatch(getPresurveyData(language));
+    }, [language]);
 
     return (
         <Layout>

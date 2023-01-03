@@ -187,7 +187,7 @@ export const cardData = [
         goal_title: 'OTHERS',
         goal_text: 'Sustainable Development Goals.',
         goal_bg: 'https://dwtyzx6upklss.cloudfront.net/Pictures/480x480/7/1/8/10718_sdginvestmentcase_321643.jpg',
-        goal_logo: 'https://sdgs.un.org/themes/custom/porto/assets/goals/global-goals.png',
+        goal_logo: '',
         bg_color: '#1f97d4'
     }
 ];

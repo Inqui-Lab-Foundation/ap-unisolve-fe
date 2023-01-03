@@ -50,7 +50,7 @@ const Cards = ({ heading, list, reports, props }) => {
             url: process.env.REACT_APP_API_BASE_URL + url,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         axios(config)

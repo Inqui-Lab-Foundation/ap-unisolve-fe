@@ -13,6 +13,7 @@ export const TextArea = ({
     value,
     onBlur,
     id,
+    maxLength,
     disabled
 }) => {
     return (
@@ -28,6 +29,7 @@ export const TextArea = ({
                 id={id}
                 disabled={disabled}
                 name={name}
+                maxLength={maxLength}
                 aria-describedby="basic-addon1"
             ></textarea>
         </div>

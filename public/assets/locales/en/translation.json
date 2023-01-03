@@ -198,7 +198,7 @@
     },
     
     "home_tl": {
-        "Hero_section-header": "Creating Change Makers of Tomorrow with <span className='green'>21st Century Skills</span>",
+        "Hero_section-header": "<span class='green'> ANDHRA PRADESH </span> <br/>Creating Change Makers of Tomorrow with <span className='green'>21st Century Skills</span>",
         "Hero_section-description": "Nurture a culture of social innovation and build skills while inspiring young people to become transformative leaders.",
         "register": "Register",
         "login": "Login",
@@ -294,28 +294,53 @@
     },
     "student": {
         "profile": "My Profile",
-        "worksheet": "<p>Dear Student,</p><p>Step-1: Download and print this worksheet or get a copy from your SIP guide teacher.</p><p>Step-2: Complete this worksheet along with your team members.</p><p>Step-3: Handover the worksheet to your guide teacher once your team completes the worksheet without fail. This needs to be submitted to District Coordinator during regional level boot-camp.</p><p>Step-4: Continue to next lesson only after you complete the worksheet.</p><p>Hope you and your team learn new things and enjoy completing this worksheet.</p>",
-        "download_worksheet": "Download Worksheet",
-        "continue": "Continue",
-        "w_sheet": "Worksheet",
-        "quiz_heading": "Ready for a quick test?",
-        "take_challenge": "Test your course skills in a short test challenge!",
-        "questions": "Questions",
-        "minutes": "Minutes",
-        "lets_start": "Let's Start",
-        "videos": "Videos",
-        "backto_quiz": "Back to Quiz",
-        "quiz_completed": "Quiz Successfully Completed",
-        "ref_quiz_heading": "Let's think about a few things you learnt in the video"
+        "worksheet":"<p>Dear Student,</p><p>Step-1: Download and print this worksheet or get a copy from your SIDP guide teacher.</p><p>Step-2: Complete this worksheet along with your team members.</p><p>Step-3: Handover the worksheet to your guide teacher once your team completes the worksheet without fail. This needs to be submitted to District Coordinator during regional level boot-camp.</p><p>Step-4: Continue to next lesson only after you complete the worksheet.</p><p>Hope you and your team learn new things and enjoy completing this worksheet.</p>",
+        "download_worksheet":"Download Worksheet",
+        "continue":"Continue",
+        "w_sheet":"Worksheet",
+        "quiz_heading":"Ready for a quick test?",
+        "take_challenge":"Test your course skills in a short test challenge!",
+        "questions":"Questions",
+        "minutes":"Minutes",
+        "lets_start":"Let's Start",
+        "videos":"Videos",
+        "backto_quiz":"Back to Quiz",
+        "quiz_completed":"Quiz Successfully Completed",
+        "ref_quiz_heading":"Let's think about a few things you learnt in the video",
+        "idea_submitted":"Your idea has been submitted successfully",
+        "idea_draft":"Your idea has been submitted as draft",
+        "attempt_all_questions":"Please Attempt All Questions..!!",
+        "idea_init_succ":"Idea initiated successfully",
+        "please_com_postsurvey_for_certificate":"Please complete the following post survey to get course completion certificate.",
+        "view_idea":"View Idea",
+        "presurver_scc_sub":"Presurvey has been submitted successfully",
+        "postsurver_scc_sub":"PostSurvey has been submitted successfully..!!",
+        "save_draft":"Save as Draft",
+        "discard": "Discard",
+        "upload_file":"Upload File",
+        "less_20MB":"Please upload file less than 20MB",
+        "please_com_all":"Please complete all the fields before submitting",
+        "not_allowed":"Not Allowed",
+        "post_survey":"Post Survey",
+        "idea_submitted_desc":"<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
+        "post_survey_desc":"Congratulations! your SIDP journey for 2022-23 is complete.",
+        "click_button_post_survey":"Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
+        "max_length_msg1":"Maximum length of characters is ",
+        "max_length_msg2":" only..."
     },
     "teacher_presurvey": {
         "completed_text": "Your survey has been successfully submitted!"
     },
     "teacher_certificate": {
         "download": "Download Certificate",
-        "certificate": "Certificate",
+        "participate_certificate": "Idea Submission Certificate",
+        "download_participate": "Download Idea Certificate",
+        "certificate": "Course Completion Certificate",
         "certificate_desc": "Please Download Certificate...",
-        "complete_postsurvey": "Please complete post survey to get course completion certificate"
+        "part_certificate_desc": "Please Download Participate Certificate...",
+        "complete_postsurvey": "Please complete post survey to get course completion certificate",
+        "complete_post_survey_default":"Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon."
+
     },
     "teacher_header": {
         "profile": "My Profile",
@@ -370,7 +395,10 @@
         "back": "Back",
         "male": "Male",
         "female": "Female",
-        "others": "Others"
+        "others": "Others",
+        "edit_idea":"Edit Idea Submission",
+        "draft":"Save as Draft",
+        "loading":"Loading"
     },
     "home_nav_links": {
         "about": "About",
@@ -389,7 +417,8 @@
         "btn_ok":"ok",
         "cancelled":"Cancelled",
         "logged_in":"You are Logged in",
-        "submit_idea":"You are attempting to submit your idea Which is not revertable"
+        "submit_idea":"You are attempting to submit your idea Which is not revertable",
+        "idea_sub_cancelled":"Idea Submission Cancelled"
     },
     "teacehr_red": {
         "heading": "REGISTER",
@@ -417,11 +446,14 @@
         "hand_book": "UNISOLVE Hand Book",
         "please_download": "Please Download Handbook..."
     },
-    "dummytext": {
-        "student_idea_sub": "Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
-        "student_my_cer": "Dear Student, you will receive your certificate once you complete the course, submit idea and take post survey. All the best :)",
-        "student_post_survey": "Dear Students, Post-Survey will be active once your team submits the idea. Hope you and your team are learning a lot of new things. : )",
-        "student_course": "Dear Student, your SIP learning journey will begin soon. Please discuss with your School SIP Head cum Guide Teacher and prepare yourself for this journey. All the best 🙂"
+    "dummytext":{
+        "student_idea_sub":"Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
+        "student_my_cer":"<p>Dear Student, your certificate will be available once you complete the course and submit the idea.</p><p>If you have completed these, your certificate will be ready shortly.</p>",
+        "student_post_survey":"Dear Students, Post-Survey will be active once you complete the course and your team submits the idea. Hope you and your team are learning a lot of new things. :)",        
+        "student_course":"Dear Student, your SIDP learning journey will begin soon. Please discuss with your School SIDP Head cum Guide Teacher and prepare yourself for this journey. All the best 🙂" ,
+        "certificate_msg":"Your certificate will be printed with the above details. If there are any changes to the above follow the steps below:</br>1. If there is any spelling mistake, request your guide teacher to correct the spelling in Teams Page of Teacher Log-In</br>2. If your Initial, Full Name is missing or incorrect request your guide teacher to update the name in Teams Page of Teacher Login</br>(There should NOT be any ‘.’ in the name. Example: If your full name is  K. Vijay Kumar it should be added as K Vijay Kumar with out any .(dot) or special characters)</br></br>Note:",
+        "name":"Name : ",
+        "school":"</br>School : "      
     },
     "badges": {
         "congratulations": "Congratulations",
@@ -437,8 +469,20 @@
         "continue course":"Continue Course",
         "exitfullscreen":"Exit Full Screen",
         "quiz_completed":"Successfully Completed!",
-        "course_scc":"Course Completed Successfully!",
-        "go_to":"Go to Challenges"
+        "go_idea_submission":"Continue",
+        "go_certificate":"Go to My Certificate",
+        "course_completed_succ":"Congratulations for successful completion of all the lessons!",
+        "continue_to_idea":"Click on continue to proceed to Idea Submission.",
+        "sdg":"Which Sustainable development Goal (SDG) are you targeting with your solution ?",
+        "sdg_desc":"(You can refer to the SDGs sheet from FIND Module and pick the right option )",
+        "others":"If you picked the option ‘others’ in the above question, write down which SDG or theme is your solution targeting.",
+        "chars":"Characters Remaining",
+        "idea_submission":"Idea Submission",
+        "idea_submission_msg1":"Idea submission is",
+        "idea_status1":" initiated by ",
+        "idea_status2":" submitted by ",
+        "idea_submission_msg2":"your teammate ",
+        "idea_submission_msg3":" on "
     },
     "translation":{
         "tamil":"Telugu Content :-",

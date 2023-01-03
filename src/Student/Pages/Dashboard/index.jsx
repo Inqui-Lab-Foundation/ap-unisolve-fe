@@ -1,10 +1,7 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import Layout from '../../Layout.jsx';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
-import { getCurrentUser, getNormalHeaders } from '../../../helpers/Utils.js';
-import { KEY, URL } from '../../../constants/defaultValues.js';
-import { getLanguage } from '../../../constants/languageOptions.js';
+import { getCurrentUser } from '../../../helpers/Utils.js';
 import { useSelector } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
 import AvatarImg from '../../../assets/media/img/Avatar.png';
@@ -23,7 +20,7 @@ import { useDispatch } from 'react-redux';
 import { FaCheckCircle,FaTimesCircle } from 'react-icons/fa';
 import {
     getStudentByIdData,
-    getStudentDashboardChallengesStatus,
+    // getStudentDashboardChallengesStatus,
     getStudentDashboardStatus,
     getStudentDashboardTeamProgressStatus,
     getStudentDashboardTutorialVideos
@@ -36,64 +33,52 @@ const Dashboard = () => {
     );
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
-    const {
-        dashboardStatus,
-        dashboardChallengesStatus,
-        dashboardTeamProgressStatus,
-        // dashboardTutorials,
-        teamMember
-    } = useSelector((state) => state?.studentRegistration);
+    const dashboardStatus = useSelector((state) => state?.studentRegistration.dashboardStatus);
+    const dashboardChallengesStatus = useSelector((state) => state?.studentRegistration.dashboardChallengesStatus);
+    const dashboardTeamProgressStatus = useSelector((state) => state?.studentRegistration.dashboardTeamProgressStatus);
+    const teamMember = useSelector((state) => state?.studentRegistration.teamMember);
+   
+    const presuveyStatusGl = useSelector(
+        (state) =>
+            state?.studentRegistration.presuveyStatusGl
+    );
     // const [videoId, setVideoId] = useState(null);
     const history = useHistory();
     useEffect(() => {
-        dispatch(
-            getStudentDashboardStatus(currentUser.data[0].user_id, language)
-        );
-        dispatch(
-            getStudentDashboardChallengesStatus(
-                currentUser.data[0].user_id,
-                language
-            )
-        );
-        dispatch(
-            getStudentDashboardTeamProgressStatus(
-                currentUser.data[0].user_id,
-                language
-            )
-        );
-    }, [dispatch, currentUser.data[0].user_id, language]);
-
-    useEffect(() => {
-        dispatch(getStudentDashboardTutorialVideos(language));
-    }, [dispatch, language]);
-
-    useEffect(() => {
-        dispatch(getStudentByIdData(currentUser.data[0].student_id));
-    }, [dispatch, currentUser.data[0].student_id]);
-
-    const checkPresurvey = () => {
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        axios
-            .get(
-                `${URL.getStudentPreSurveyList}?role=STUDENT&${getLanguage(
+        if(currentUser){
+            dispatch(
+                getStudentDashboardStatus(currentUser?.data[0]?.user_id, language)
+            );
+            // dispatch(
+            //     getStudentDashboardChallengesStatus(
+            //         currentUser?.data[0]?.user_id,
+            //         language
+            //     )
+            // );
+            dispatch(
+                getStudentDashboardTeamProgressStatus(
+                    currentUser?.data[0]?.user_id,
                     language
-                )}`,
-                axiosConfig
-            )
-            .then((preSurveyRes) => {
-                if (preSurveyRes?.status == 200) {
-                    console.log(preSurveyRes);
-                    if (preSurveyRes.data.data[0].progress !== 'COMPLETED')
-                        history.push('/student/pre-survey');
-                }
-            })
-            .catch((err) => {
-                return err.response;
-            });
-    };
+                )
+            );
+        }
+    }, [currentUser?.data[0]?.user_id, language]);
+    
+    useEffect(() => {
+        if(currentUser)
+            dispatch(getStudentDashboardTutorialVideos(language));
+    }, [language]);
+    
+    useEffect(() => {
+        if(currentUser)
+            dispatch(getStudentByIdData(currentUser?.data[0]?.student_id));
+    }, [dispatch, currentUser?.data[0]?.student_id]);
+
     useLayoutEffect(() => {
-        checkPresurvey();
-    }, []);
+        if(presuveyStatusGl !=='COMPLETED')
+            history.push('/student/pre-survey');
+    }, [presuveyStatusGl]);
+
     const cardData = {
         idea: {
             heading: 'Notice Board',
@@ -218,11 +203,11 @@ const Dashboard = () => {
         },
         {
             title: 'Certificate',
-            dataIndex: 'certificate_status',
+            dataIndex: 'certificate',
             align:"center",
             width: '10%',
             render: (_, record) =>
-                record?.certificate_status ? (
+                record?.certificate ? (
                     <FaCheckCircle size={20} color="green"/>
                 ) : (
                     <FaTimesCircle size={20} color="red" />
@@ -343,7 +328,7 @@ const Dashboard = () => {
                                     htmlFor="teams"
                                     className="mb-3 text-capitalize"
                                 >
-                                    <span>{currentUser.data[0].team_name}</span>
+                                    <span>{currentUser?.data[0]?.team_name}</span>
                                 </label>
                             </div>
                             <Table
