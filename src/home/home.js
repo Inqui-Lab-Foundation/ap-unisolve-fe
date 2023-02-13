@@ -346,7 +346,6 @@ const Home = () => {
             desc: `${t('home_tl.idea_desc_3')}`
         }
     ];
-    // console.log("----379",sidebar);
 
     return (
         <div className="home-main">

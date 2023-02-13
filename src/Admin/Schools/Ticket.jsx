@@ -30,10 +30,8 @@ const TicketsPage = (props) => {
     const [showImportPopup, setImportPopup] = useState(false);
     const [reqList, setReqList] = useState(false);
     const [newList, setNewList] = useState(false);
-
     const [reqSchoolsResponse, setReqSchoolsResponse] = useState([]);
     const [newSchoolsResponse, setNewSchoolsResponse] = useState([]);
-
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
     const [SRows, setSRows] = React.useState([]);
@@ -59,7 +57,6 @@ const TicketsPage = (props) => {
     useEffect(() => {
         props.getSchoolRegistationBulkUploadActions('i');
     }, []);
-
     const handleEdit = (item) => {
         history.push({
             pathname: '/admin/register-edit-schools'
@@ -67,6 +64,7 @@ const TicketsPage = (props) => {
         localStorage.setItem('listId', JSON.stringify(item));
     };
     const handleActiveStatusUpdate = (item, itemA) => {
+        //  handleActiveStatusUpdate we  can update the status in active institutions //
         const body = {
             status: itemA,
             organization_code: item.organization_code,
@@ -101,6 +99,7 @@ const TicketsPage = (props) => {
             });
     };
     const handleStatusUpdate = (item, itemS) => {
+        //  handleStatusUpdate we can update the status in inActive institution //
         const body = {
             status: itemS,
             organization_code: item.organization_code,
@@ -120,7 +119,6 @@ const TicketsPage = (props) => {
         };
         axios(config)
             .then(function (response) {
-                console.log(response);
                 if (response.status === 200) {
                     setReqList(true);
                     listApi();
@@ -137,6 +135,7 @@ const TicketsPage = (props) => {
     };
 
     const handleNewUpdate = (item, itemS) => {
+        // handleNewUpdate we can update the status in new institutions //
         const body = {
             status: itemS,
             organization_code: item.organization_code,
@@ -170,13 +169,13 @@ const TicketsPage = (props) => {
                 openNotificationWithIcon('error', 'Something went wrong');
             });
     };
-
     const handleNewSchoolsList = () => {
+        //  handleNewSchoolsList we can add the new institution //
         setReqList(false);
         newListApi();
     };
-
     async function listApi() {
+        // listApi we can get the inActive institutions //
         var config = {
             method: 'get',
             url:
@@ -190,8 +189,6 @@ const TicketsPage = (props) => {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response.data);
-
                     setReqSchoolsResponse(
                         response.data.data[0] &&
                             response.data.data[0].dataValues
@@ -203,8 +200,8 @@ const TicketsPage = (props) => {
                 console.log(error);
             });
     }
-
     async function newListApi() {
+        // newListApi we can get the new institutions //
         var config = {
             method: 'get',
             url:
@@ -218,8 +215,6 @@ const TicketsPage = (props) => {
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response.data);
-
                     setNewSchoolsResponse(
                         response.data.data[0] &&
                             response.data.data[0].dataValues
@@ -231,8 +226,8 @@ const TicketsPage = (props) => {
                 console.log(error);
             });
     }
-
     const handleReqSchoolsList = (e) => {
+        // handleReqSchoolsList we can get the inActive institutions //
         listApi();
     };
 
@@ -247,19 +242,19 @@ const TicketsPage = (props) => {
         setNewList(false);
         props.getSchoolRegistationBulkUploadActions('i');
     };
-    console.log(props.schoolsRegistrationList,"-----test");
-    const [array,setarray]=useState([]);
+    const [array, setarray] = useState([]);
     useEffect(() => {
-        if(props.schoolsRegistrationList && props.schoolsRegistrationList.length>0){
+        if (
+            props.schoolsRegistrationList &&
+            props.schoolsRegistrationList.length > 0
+        ) {
             let dataarray = [];
-            props.schoolsRegistrationList.forEach((item,index) => {
-                dataarray.push(Object.assign(item, {index: index+1}));
-            }); 
-            setarray([...dataarray]); 
+            props.schoolsRegistrationList.forEach((item, index) => {
+                dataarray.push(Object.assign(item, { index: index + 1 }));
+            });
+            setarray([...dataarray]);
         }
     }, [props.schoolsRegistrationList]);
-
-    console.log(array,"---newarray----");
     const SchoolsData = {
         data: array,
         columns: [
@@ -272,7 +267,7 @@ const TicketsPage = (props) => {
             {
                 name: 'UDISE Code ',
                 selector: 'organization_code',
-                cellExport:(row) => row.organization_code,
+                cellExport: (row) => row.organization_code,
                 sortable: true,
 
                 width: '15%'
@@ -280,24 +275,24 @@ const TicketsPage = (props) => {
             {
                 name: 'Institution Name',
                 selector: 'organization_name',
-                cellExport:(row) => row.organization_name,
+                cellExport: (row) => row.organization_name,
                 width: '19%'
             },
             {
                 name: 'Principal Name',
                 selector: 'principal_name',
-                cellExport:(row) => row.principal_name,
+                cellExport: (row) => row.principal_name,
                 width: '15%'
             },
             {
                 name: 'Mobile',
                 selector: 'principal_mobile',
-                cellExport:(row) => row.principal_mobile,
+                cellExport: (row) => row.principal_mobile,
                 width: '12%'
             },
             {
                 name: 'Status',
-                cellExport:(row) => row.status,
+                cellExport: (row) => row.status,
                 cell: (row) => [
                     <Badge
                         key={row.organization_id}
@@ -315,7 +310,7 @@ const TicketsPage = (props) => {
                 selector: 'action',
                 width: '23%',
                 center: true,
-                cellExport:(row) => {},
+                cellExport: (row) => {},
                 cell: (record) => [
                     <>
                         <Link
@@ -355,7 +350,6 @@ const TicketsPage = (props) => {
             }
         ]
     };
-
     const reqSchoolsData = {
         data: reqSchoolsResponse,
         columns: [
@@ -634,7 +628,11 @@ const TicketsPage = (props) => {
                         </div>
                     ) : (
                         <div className="my-2">
-                            <DataTableExtensions {...SchoolsData} export={true} exportHeaders>
+                            <DataTableExtensions
+                                {...SchoolsData}
+                                export={true}
+                                exportHeaders
+                            >
                                 <DataTable
                                     data={rows}
                                     // noHeader
@@ -659,14 +657,10 @@ const TicketsPage = (props) => {
         </Layout>
     );
 };
-
-// export default TicketsPage;
-
 const mapStateToProps = ({ schoolRegistration }) => {
     const { schoolsRegistrationList } = schoolRegistration;
     return { schoolsRegistrationList };
 };
-
 export default connect(mapStateToProps, {
     getSchoolRegistationBulkUploadActions: getSchoolRegistationBulkUploadList
 })(TicketsPage);

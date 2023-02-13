@@ -472,7 +472,10 @@
         "idea_status1":" ప్రారంభించబడింది ",
         "idea_status2":" సమర్పించబడింది ",
         "idea_submission_msg2":"మీ సహచరుడు ",
-        "idea_submission_msg3":" న "
+        "idea_submission_msg3":" న ",
+        "idea_submission_date_com_desc":"ప్రియమైన విద్యార్థులారా, ఆలోచన సమర్పణకు చివరి తేదీ పూర్తయింది. దయచేసి మీ కోర్సును పూర్తి చేయండి మరియు సర్వేను పోస్ట్ చేయండి.",
+        "go_to_course_button":"కోర్సుకు వెళ్లండి",
+        "go_to_post_survey_button":"పోస్ట్ సర్వేకి వెళ్లండి"
     },
     "translation":{
         "tamil":"Telugu Content :-",

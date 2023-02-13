@@ -33,7 +33,7 @@ function ForgotPassword(props) {
         }),
 
         onSubmit: async (values) => {
-            console.log(JSON.stringify(values));
+            // console.log(JSON.stringify(values));
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             await axios
                 .put(
@@ -91,7 +91,7 @@ function ForgotPassword(props) {
                             {...inputMob}
                             id="mobile"
                             name="mobile"
-                            placeholder="Please enter mobile number"
+                            placeholder=" Enter the Registered mobile number"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.mobile}

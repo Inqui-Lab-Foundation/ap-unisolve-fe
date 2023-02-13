@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
@@ -19,7 +20,7 @@ import { useDispatch } from 'react-redux';
 const EditProfile = (props) => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
-    const dispatch =useDispatch();
+    const dispatch = useDispatch();
     const mentorData =
         (history && history.location && history.location.data) || {};
     const headingDetails = {
@@ -31,15 +32,16 @@ const EditProfile = (props) => {
                 path: '/admin/userlist'
             },
             {
-                title: 'User Edit Profile'
+                title: 'User Edit Profile',
+                path: '/admin/userlist'
             }
         ]
     };
 
     const phoneRegExp =
         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-    
-    const getValidationSchema = (data)=>{
+
+    const getValidationSchema = (data) => {
         const adminValidation = Yup.object({
             name: Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid name ')
@@ -47,30 +49,30 @@ const EditProfile = (props) => {
                 .required('Name is Required'),
             email: Yup.string()
                 .email('Invalid email address format')
-                .required('Email is required'),
+                .required('Email is required')
         });
         if (data?.mentor_id)
-            adminValidation['phone']= Yup.string()
+            adminValidation['phone'] = Yup.string()
                 .matches(phoneRegExp, 'Mobile number is not valid')
                 .min(10, 'Enter a valid mobile number')
                 .max(10, 'Enter a valid mobile number')
                 .required('Mobile Number is Required');
-        if(data?.evaluator_id)
-            adminValidation['district']= Yup.string()
+        if (data?.evaluator_id)
+            adminValidation['district'] = Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid District Name ')
                 .min(2, 'Enter a valid district')
                 .required('District is Required');
         return adminValidation;
     };
-    const getInitialValues = (data)=>{
-        const commonInitialValues ={
+    const getInitialValues = (data) => {
+        const commonInitialValues = {
             name: mentorData.full_name || mentorData.user.full_name,
-            email: mentorData.username || mentorData.user.username,
+            email: mentorData.username || mentorData.user.username
         };
-        if(!data?.admin_id){
-            commonInitialValues['phone']= mentorData.mobile;
-            if(!data?.mentor_id)
-                commonInitialValues['district']= mentorData.district;
+        if (!data?.admin_id) {
+            commonInitialValues['phone'] = mentorData.mobile;
+            if (!data?.mentor_id)
+                commonInitialValues['district'] = mentorData.district;
         }
         return commonInitialValues;
     };
@@ -86,15 +88,17 @@ const EditProfile = (props) => {
                 full_name: full_name,
                 mobile: mobile,
                 username: email,
-                district:district
+                district: district
             });
             const url = mentorData?.evaluator_id
                 ? process.env.REACT_APP_API_BASE_URL +
                   '/evaluators/' +
                   mentorData.evaluator_id
-                : mentorData?.admin_id ? process.env.REACT_APP_API_BASE_URL +
-                '/admins/' +
-                mentorData.admin_id :process.env.REACT_APP_API_BASE_URL +
+                : mentorData?.admin_id
+                ? process.env.REACT_APP_API_BASE_URL +
+                  '/admins/' +
+                  mentorData.admin_id
+                : process.env.REACT_APP_API_BASE_URL +
                   '/mentors/' +
                   mentorData.mentor_id;
             var config = {
@@ -109,9 +113,14 @@ const EditProfile = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status === 200) {
-                        mentorData?.evaluator_id  ? dispatch(getAdminEvalutorsList())  : mentorData?.admin_id && dispatch(getAdmin());
-                        openNotificationWithIcon('success','Updated Successfully');
-                        setTimeout(() => {     
+                        mentorData?.evaluator_id
+                            ? dispatch(getAdminEvalutorsList())
+                            : mentorData?.admin_id && dispatch(getAdmin());
+                        openNotificationWithIcon(
+                            'success',
+                            'Updated Successfully'
+                        );
+                        setTimeout(() => {
                             props.history.push(
                                 mentorData.where === 'Dashbord'
                                     ? '/admin/dashboard'
@@ -125,7 +134,18 @@ const EditProfile = (props) => {
                 });
         }
     });
-    
+
+    const handleDiscard = () => {
+        props.history.push(
+            mentorData.where === 'Dashbord'
+                ? '/admin/dashboard'
+                : '/admin/userlist'
+        );
+        localStorage.setItem(
+            'organization_code',
+            JSON.stringify(mentorData.organization_code)
+        );
+    };
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -155,11 +175,11 @@ const EditProfile = (props) => {
                                             />
 
                                             {formik.touched.name &&
-                                                formik.errors.name ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.name}
-                                                    </small>
-                                                ) : null}
+                                            formik.errors.name ? (
+                                                <small className="error-cls">
+                                                    {formik.errors.name}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                         <div className="w-100" />
                                         <Col md={6}>
@@ -178,64 +198,92 @@ const EditProfile = (props) => {
                                                 value={formik.values.email}
                                             />
                                             {formik.touched.email &&
-                                                formik.errors.email ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.email}
-                                                    </small>
-                                                ) : null}
+                                            formik.errors.email ? (
+                                                <small className="error-cls">
+                                                    {formik.errors.email}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                         <div className="w-100" />
-                                        {!mentorData?.admin_id && 
-                                        <>
-                                            <Col md={6}>
-                                                <Label
-                                                    className="name-req mt-5"
-                                                    htmlFor="phone"
-                                                >
-                                                    Phone
-                                                </Label>
-                                                <InputBox
-                                                    className={'defaultInput'}
-                                                    id="phone"
-                                                    name="phone"
-                                                    onChange={formik.handleChange}
-                                                    onBlur={formik.handleBlur}
-                                                    value={formik.values.phone}
-                                                />
+                                        {!mentorData?.admin_id && (
+                                            <>
+                                                <Col md={6}>
+                                                    <Label
+                                                        className="name-req mt-5"
+                                                        htmlFor="phone"
+                                                    >
+                                                        Phone
+                                                    </Label>
+                                                    <InputBox
+                                                        className={
+                                                            'defaultInput'
+                                                        }
+                                                        id="phone"
+                                                        name="phone"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.phone
+                                                        }
+                                                    />
 
-                                                {formik.touched.phone &&
+                                                    {formik.touched.phone &&
                                                     formik.errors.phone ? (
                                                         <small className="error-cls">
-                                                            {formik.errors.phone}
+                                                            {
+                                                                formik.errors
+                                                                    .phone
+                                                            }
                                                         </small>
                                                     ) : null}
-                                            </Col>
-                                            <div className="w-100" />
-                                            {!mentorData?.mentor_id && <Col md={6}>
-                                                <Label
-                                                    className="name-req mt-5"
-                                                    htmlFor="district"
-                                                >
-                                                    District
-                                                </Label>
-                                                <InputBox
-                                                    className={'defaultInput'}
-                                                    id="district"
-                                                    name="district"
-                                                    onChange={formik.handleChange}
-                                                    onBlur={formik.handleBlur}
-                                                    value={formik.values.district}
-                                                />
+                                                </Col>
+                                                <div className="w-100" />
+                                                {!mentorData?.mentor_id && (
+                                                    <Col md={6}>
+                                                        <Label
+                                                            className="name-req mt-5"
+                                                            htmlFor="district"
+                                                        >
+                                                            District
+                                                        </Label>
+                                                        <InputBox
+                                                            className={
+                                                                'defaultInput'
+                                                            }
+                                                            id="district"
+                                                            name="district"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .district
+                                                            }
+                                                        />
 
-                                                {formik.touched.district &&
-                                                    formik.errors.district ? (
-                                                        <small className="error-cls">
-                                                            {formik.errors.district}
-                                                        </small>
-                                                    ) : null}
-                                            </Col>}
-                                        </>
-                                        }
+                                                        {formik.touched
+                                                            .district &&
+                                                        formik.errors
+                                                            .district ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .district
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+                                                )}
+                                            </>
+                                        )}
                                     </Row>
                                 </div>
 
@@ -246,14 +294,15 @@ const EditProfile = (props) => {
                                             label="Discard"
                                             btnClass="secondary"
                                             size="small"
-                                            onClick={() =>
-                                                props.history.push(
-                                                    mentorData.where ===
-                                                        'Dashbord'
-                                                        ? '/admin/dashboard'
-                                                        : '/admin/userlist'
-                                                )
-                                            }
+                                            onClick={handleDiscard}
+                                            // onClick={() =>
+                                            //     props.history.push(
+                                            //         mentorData.where ===
+                                            //             'Dashbord'
+                                            //             ? '/admin/dashboard'
+                                            //             : '/admin/userlist'
+                                            //     )
+                                            // }
                                         />
                                     </Col>
                                     <Col className="submit-btn col-xs-12 col-sm-6">

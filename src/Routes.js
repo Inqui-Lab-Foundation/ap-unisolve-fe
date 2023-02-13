@@ -53,7 +53,9 @@ import AdminMySettings from './Admin/MySettings';
 
 import AdminChallenges from './Admin/Challenges/ViewSelectedChallenges';
 import AdminEvaluation from './Admin/Evaluation/index';
+import AdminEvaluationProcess from './Admin/EvalProcess/index';
 import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
+import Selectedfinallist from './Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import AdminNewBadge from './Admin/Badges/NewBadge';
 import AdminCourses from './Admin/Courses';
 import AdminCourseView from './Admin/Courses/coursesView';
@@ -148,7 +150,12 @@ import EvalutorAdminLogins from './Evaluator/Admin/EvaluatorAdminLogin';
 import Eadmindashboard from './Evaluator/Admin/Dashboard/EAdminDashboard';
 import EadminChangePassword from './Evaluator/Admin/Pages/ChangePSWModal';
 import ListOfIdeas from './Evaluator/Admin/ViewTable/ViewSelectedIdea';
+import ListOfFinalIdeas from './Evaluator/Admin/FinalResulteadmin/ViewFinalSelectedideas';
 import TicketResView from './Admin/Tickets/TicketResView';
+import EditEvalProcess from './Admin/EvalProcess/EditEvalProcess';
+import SelDistricts from './Admin/EvalProcess/SelectingDistricts';
+import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
+import ReportsView from './Admin/Reports/Helpers/ReportsView';
 
 const Routers = () => {
     // const history = useHistory();
@@ -546,14 +553,25 @@ const Routers = () => {
 
                     <ProtectedRoute
                         exact={true}
-                        path="/admin/evaluation"
+                        path="/admin/evaluationStatus"
                         component={AdminEvaluation}
                     />
 
                     <ProtectedRoute
                         exact={true}
-                        path="/admin/evaluation/viewlist"
+                        path="/admin/evaluationStatus/viewlist"
                         component={Selectedlist}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/evaluationStatus/viewfinallist"
+                        component={Selectedfinallist}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/evaluationProcess"
+                        component={AdminEvaluationProcess}
                     />
 
                     <ProtectedRoute
@@ -575,6 +593,11 @@ const Routers = () => {
                         exact={true}
                         path="/admin/selected-report"
                         component={IndividualReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/reports-view"
+                        component={ReportsView}
                     />
 
                     <ProtectedRoute
@@ -719,6 +742,21 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        path="/admin/create-evaluationProcess"
+                        component={CreateEvalProcess}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/edit-evaluationProcess"
+                        component={EditEvalProcess}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/selectingDistricts-evaluationProcess"
+                        component={SelDistricts}
+                    />
+                    <ProtectedRoute
+                        exact={true}
                         path="/admin/edit-translation"
                         component={EditTranslation}
                     />
@@ -785,6 +823,11 @@ const Routers = () => {
                         exact={true}
                         path="/eadmin/listofideas"
                         component={ListOfIdeas}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/eadmin/listofFinalideas"
+                        component={ListOfFinalIdeas}
                     />
                     <Route component={PageNotFound} path="*" />
                 </Switch>
