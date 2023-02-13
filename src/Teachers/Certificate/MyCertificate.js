@@ -19,7 +19,8 @@ const MyCertificate = () => {
     const currentUser = getCurrentUser('current_user');
     const language = useSelector((state) => state?.mentors.mentorLanguage);
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
-    let tempVar = postSurveyStatus === 'COMPLETED';
+    //let tempVar = postSurveyStatus === 'COMPLETED';
+    let tempVar = false;
     const handleCertificateDownload = () => {
         const content = pdfRef.current;
         const doc = new jsPDF('l', 'px', [211, 298]);
