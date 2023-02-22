@@ -33,8 +33,11 @@ const LoginNew = (props) => {
     const [showPopUp, setShowPopUp] = useState(false);
     useLayoutEffect(() => {
         i18next.changeLanguage('en');
-        const moduleName = localStorage.getItem("module");
-        if (localStorage.getItem("current_user") && localStorage.getItem("module")) {
+        const moduleName = localStorage.getItem('module');
+        if (
+            localStorage.getItem('current_user') &&
+            localStorage.getItem('module')
+        ) {
             moduleName === 'MENTOR'
                 ? history.push('/teacher/dashboard')
                 : moduleName === 'ADMIN'
@@ -46,7 +49,7 @@ const LoginNew = (props) => {
                 : history.push('/dashboard');
         }
     }, []);
-    
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -59,8 +62,16 @@ const LoginNew = (props) => {
         }),
         // TEACHER ROLE
         onSubmit: (values) => {
-            if(localStorage.getItem("current_user") && localStorage.getItem("module")){
-                openNotificationWithIcon("error",`Another User(${localStorage.getItem("module")}) has already logged in`);
+            if (
+                localStorage.getItem('current_user') &&
+                localStorage.getItem('module')
+            ) {
+                openNotificationWithIcon(
+                    'error',
+                    `Another User(${localStorage.getItem(
+                        'module'
+                    )}) has already logged in`
+                );
                 return;
             }
             const key = CryptoJS.enc.Hex.parse(
@@ -79,7 +90,7 @@ const LoginNew = (props) => {
                 role: 'MENTOR'
             };
             // history.push("/admin/dashboard");
-            props.teacherLoginUserAction(body, history,"MENTOR");
+            props.teacherLoginUserAction(body, history, 'MENTOR');
         }
     });
 
@@ -114,7 +125,6 @@ const LoginNew = (props) => {
     //     openNotificationWithIcon("error", "Please check login details");
     //   }
     // }, [props.currentUser, props.error]);
-    // console.log("===========error", props.error);
     const handleShow = (e, type) => {
         if (type === 'password') {
             handlePassword('text');
@@ -316,8 +326,8 @@ const LoginNew = (props) => {
                                                         className="text-link pt-1"
                                                     >
                                                         {t(
-                                                                'loginPage.Forgot_password'
-                                                            )}
+                                                            'loginPage.Forgot_password'
+                                                        )}
                                                     </Link>
                                                 </Col>
                                             </Row>
@@ -355,7 +365,7 @@ const LoginNew = (props) => {
                                 </Form>
                             </Col>
                         </Row>
-                    </Col> 
+                    </Col>
                 </Row>
             </div>
             {showPopUp && (

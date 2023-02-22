@@ -484,7 +484,6 @@ const CreateTeamMember = (props) => {
             }
         }
     });
-    console.log(isClicked);
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">

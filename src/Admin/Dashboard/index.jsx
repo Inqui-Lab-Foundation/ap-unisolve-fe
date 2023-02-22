@@ -38,13 +38,13 @@ const Dashboard = () => {
     const currentUser = getCurrentUser('current_user');
     const [diesCode, setDiesCode] = useState('');
     const [orgData, setOrgData] = useState({});
-    // console.log(orgData);
     const [mentorId, setMentorId] = useState('');
     const [SRows, setSRows] = React.useState([]);
     const [mentorTeam, setMentorTeam] = useState([]);
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
     const handleOnChange = (e) => {
+        // We can give Dise Code//
         localStorage.removeItem('organization_code');
         setCount(0);
         setDiesCode(e.target.value);
@@ -56,8 +56,9 @@ const Dashboard = () => {
         setDiesCode(list);
         apiCall(list);
     }, []);
-
     async function apiCall(list) {
+        // Dice code list API //
+        // list= Dise code  //
         const body = JSON.stringify({
             organization_code: list
         });
@@ -72,15 +73,13 @@ const Dashboard = () => {
 
         await axios(config)
             .then(function (response) {
-                // console.log(response);
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
-                    
+
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        console.log(response);
                         getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
@@ -110,14 +109,12 @@ const Dashboard = () => {
 
         axios(config)
             .then(function (response) {
-                // console.log(response);
                 if (response.status == 200) {
                     setOrgData(response?.data?.data[0]);
                     setCount(count + 1);
                     setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
                     if (response?.data?.data[0]?.mentor.mentor_id) {
-                        console.log(response);
                         getMentorIdApi(
                             response?.data?.data[0]?.mentor.mentor_id
                         );
@@ -134,6 +131,8 @@ const Dashboard = () => {
     };
 
     async function getMentorIdApi(id) {
+        // Mentor Id  Api//
+        // id = Mentor Id //
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
         axiosConfig['params'] = {
             mentor_id: id,
@@ -144,7 +143,6 @@ const Dashboard = () => {
             .get(`${URL.getTeamMembersList}`, axiosConfig)
             .then((res) => {
                 if (res?.status == 200) {
-                    console.log(res);
                     var mentorTeamArray = [];
                     res &&
                         res.data &&
@@ -155,7 +153,6 @@ const Dashboard = () => {
                             var key = index + 1;
                             return mentorTeamArray.push({ ...teams, key });
                         });
-                    console.log('mentorTeamArray', mentorTeamArray);
                     setMentorTeam(mentorTeamArray);
                 }
             })
@@ -165,6 +162,8 @@ const Dashboard = () => {
     }
 
     const handleEdit = () => {
+        // We can edit  the Registration details//
+        // Where data=orgData//
         history.push({
             pathname: '/admin/edit-user-profile',
             data: {
@@ -172,12 +171,14 @@ const Dashboard = () => {
                 mobile: orgData.mentor?.mobile,
                 username: orgData.mentor?.user?.username,
                 mentor_id: orgData.mentor?.mentor_id,
-                where: 'Dashbord'
+                where: 'Dashbord',
+                organization_code: orgData.organization_code
             }
         });
     };
 
     const handleresetpassword = (data) => {
+        // We can resset the password//
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -236,7 +237,7 @@ const Dashboard = () => {
         data: mentorTeam,
         columns: [
             {
-                name: 'S.No',
+                name: 'No',
                 selector: 'key',
                 width: '12%'
             },
@@ -315,6 +316,40 @@ const Dashboard = () => {
             })
             .catch(function (error) {
                 console.log(error);
+            });
+    };
+
+    const handleAlert = (id) => {
+        // id = mentor  user id //
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+
+        swalWithBootstrapButtons
+            .fire({
+                title: 'You are Delete Organization',
+                text: 'Are you sure?',
+                showCloseButton: true,
+                confirmButtonText: 'Confirm',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    if (result.isConfirmed) {
+                        deleteTempMentorById(id);
+                        setOrgData({});
+                        setDiesCode('');
+                    }
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire('Cancelled', '', 'error');
+                }
             });
     };
 
@@ -457,7 +492,8 @@ const Dashboard = () => {
                                     </div>
                                     <div className="d-flex justify-content-between">
                                         <button
-                                            onClick={() => handleEdit()}
+                                            onClick={handleEdit}
+                                            // onClick={() => handleEdit()}
                                             className="btn btn-warning btn-lg"
                                         >
                                             Edit
@@ -488,11 +524,9 @@ const Dashboard = () => {
                                         </button>
                                         <button
                                             onClick={() => {
-                                                deleteTempMentorById(
+                                                handleAlert(
                                                     orgData.mentor?.user_id
                                                 );
-                                                setOrgData({});
-                                                setDiesCode('');
                                             }}
                                             className="btn btn-danger btn-lg"
                                         >
@@ -500,7 +534,7 @@ const Dashboard = () => {
                                         </button>
                                     </div>
 
-                                    <div className="mb-5 p-3" ref={pdfRef}>
+                                    <div className="mb-5 p-3">
                                         <div className="container-fluid card shadow border">
                                             <div className="row">
                                                 <div className="col">

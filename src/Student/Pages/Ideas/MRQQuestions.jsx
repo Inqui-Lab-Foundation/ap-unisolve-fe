@@ -5,13 +5,15 @@ import { TextArea } from '../../../stories/TextArea/TextArea';
 const MRQQuestions = ({ formik, i, eachQuestion, answer }) => {
     const [isCheck, setIsCheck] = useState({
         challenge_question_id: '',
-        selected_option: ([]||null)
+        selected_option: [] || null
     });
     const [answerData, setAnswerData] = useState('');
     useEffect(() => {
         setAnswerData(() => answer());
         if (
-            answerData && parseInt(answerData.challenge_question_id) === eachQuestion?.challenge_question_id &&
+            answerData &&
+            parseInt(answerData.challenge_question_id) ===
+                eachQuestion?.challenge_question_id &&
             typeof answerData?.selected_option === 'object' &&
             answerData?.selected_option.length > 0
         ) {
@@ -43,7 +45,6 @@ const MRQQuestions = ({ formik, i, eachQuestion, answer }) => {
             }
         }
     };
-    console.log(isCheck);
     return (
         <Row key={i}>
             <div className="question quiz mb-0">
@@ -185,8 +186,8 @@ const MRQQuestions = ({ formik, i, eachQuestion, answer }) => {
                                             isCheck?.selected_option &&
                                             isCheck.selected_option.length > 0
                                                 ? isCheck.selected_option.includes(
-                                                    eachQuestion.option_a
-                                                )
+                                                      eachQuestion.option_a
+                                                  )
                                                 : false
                                         }
                                         value={`${eachQuestion.option_a}`}
@@ -213,8 +214,8 @@ const MRQQuestions = ({ formik, i, eachQuestion, answer }) => {
                                             isCheck?.selected_option &&
                                             isCheck.selected_option.length > 0
                                                 ? isCheck.selected_option.includes(
-                                                    eachQuestion.option_b
-                                                )
+                                                      eachQuestion.option_b
+                                                  )
                                                 : false
                                         }
                                         value={`${eachQuestion.option_b}`}
@@ -241,8 +242,8 @@ const MRQQuestions = ({ formik, i, eachQuestion, answer }) => {
                                             isCheck?.selected_option &&
                                             isCheck.selected_option.length > 0
                                                 ? isCheck.selected_option.includes(
-                                                    eachQuestion.option_c
-                                                )
+                                                      eachQuestion.option_c
+                                                  )
                                                 : false
                                         }
                                         value={`${eachQuestion.option_c}`}
@@ -270,8 +271,8 @@ const MRQQuestions = ({ formik, i, eachQuestion, answer }) => {
                                             isCheck?.selected_option &&
                                             isCheck.selected_option.length > 0
                                                 ? isCheck.selected_option.includes(
-                                                    eachQuestion.option_d
-                                                )
+                                                      eachQuestion.option_d
+                                                  )
                                                 : false
                                         }
                                         value={`${eachQuestion.option_d}`}

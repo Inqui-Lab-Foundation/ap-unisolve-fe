@@ -295,6 +295,7 @@ const IdeasPageNew = () => {
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel
                 ) {
+
                     swalWithBootstrapButtons.fire( 
                     t('general_req.cancelled'),
                     t('general_req.idea_sub_cancelled'),

@@ -29,11 +29,9 @@ import { getCurrentUser } from '../../helpers/Utils';
 
 const TicketsPage = (props) => {
     const [rows, setRows] = React.useState([]);
-    // console.log(rows);
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { supportTickets } = useSelector((state) => state.mentors);
-    // console.log(supportTickets);
     const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const history = useHistory();
@@ -118,6 +116,10 @@ const TicketsPage = (props) => {
                     ) : params.status === 'RESOLVED' ? (
                         <span className="bg-success bg-opacity-25 px-4 py-2 rounded-pill text-success fw-bold">
                             Resolved
+                        </span>
+                    ) : params.status === 'INVALID' ? (
+                        <span className="bg-warning bg-opacity-25 px-4 py-2 rounded-pill text-warning fw-bold">
+                            Invalid
                         </span>
                     ) : (
                         ''
