@@ -33,6 +33,10 @@ const Reports = () => {
         'Final Evaluation Challenges',
         'Final Winner Challenges'
     ];
+    const evaluatorReports = [
+        'L1 - Evaluated count',
+        'L2 - Evaluated count',
+    ];
 
     return (
         <Layout>
@@ -44,6 +48,7 @@ const Reports = () => {
                             list={survey}
                             reports={teacherReports}
                             distList={districtReports}
+                            evaluatorReports={evaluatorReports}
                         />
                     </Col>
                 </Row>

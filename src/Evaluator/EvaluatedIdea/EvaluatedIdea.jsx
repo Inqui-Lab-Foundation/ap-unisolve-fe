@@ -103,13 +103,7 @@ const EvaluatedIdea = () => {
         columns: [
             {
                 name: 'No',
-                cell: (params, index) => {
-                    return [
-                        <div className="ms-3" key={params}>
-                            {index + 1}
-                        </div>
-                    ];
-                },
+                selector: (row) => row.key || '',
                 sortable: true,
                 width: '6%'
             },
