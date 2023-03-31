@@ -4,8 +4,8 @@ import { Button } from '../../../stories/Button';
 import Layout from '../../Layout';
 import jsPDF from 'jspdf';
 import { getCurrentUser } from '../../../helpers/Utils';
-import courseCompletionCertificate from '../../../assets/media/img/certificates/TN-SIDP-Certificates-signed-2-1.png';
-import ideaSubmissionCertificate from '../../../assets/media/img/certificates/TN-SIDP-Certificates-signed-3-1.png';
+import courseCompletionCertificate from '../../../assets/media/img/certificates/Student_APUp.png';
+import ideaSubmissionCertificate from '../../../assets/media/img/certificates/Idea_submission_stu_Ap.png';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -154,7 +154,7 @@ const Certificate = ({
 };
 
 const MyCertificate = () => {
-    const showDummypage = false;
+    const showDummypage = true;
     const { t } = useTranslation();
     // const teamMember = useSelector((state) => state?.studentRegistration.teamMember);
     const language = useSelector(

@@ -5,7 +5,7 @@ import { Button } from '../../stories/Button';
 import Layout from '../Layout';
 import jsPDF from 'jspdf';
 import { getCurrentUser, getNormalHeaders } from '../../helpers/Utils';
-import TeacherCertificate from '../../assets/media/img/certificates/TN-SIDP-Certificates-signed-1-1.png';
+import TeacherCertificate from '../../assets/media/img/certificates/Mentor_APUpdated.png';
 import { useTranslation } from 'react-i18next';
 import { KEY, URL } from '../../constants/defaultValues';
 import { useSelector } from 'react-redux';
@@ -19,8 +19,7 @@ const MyCertificate = () => {
     const currentUser = getCurrentUser('current_user');
     const language = useSelector((state) => state?.mentors.mentorLanguage);
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
-    //let tempVar = postSurveyStatus === 'COMPLETED';
-    let tempVar = false;
+    let tempVar = postSurveyStatus === 'COMPLETED';
     const handleCertificateDownload = () => {
         const content = pdfRef.current;
         const doc = new jsPDF('l', 'px', [211, 298]);
