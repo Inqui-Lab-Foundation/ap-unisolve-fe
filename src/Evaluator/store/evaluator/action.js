@@ -196,8 +196,12 @@ export const getL1EvaluatedIdea = (params,setshowspin) => async (dispatch) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data =result?.data?.data;
-            dispatch(getL1EvaluatedIdeaSuccess(data));
+            const updatedWithKey = result?.data?.data.map((item, i) => {
+                const upd = { ...item };
+                upd['key'] = i + 1;
+                return upd;
+            });
+            dispatch(getL1EvaluatedIdeaSuccess(updatedWithKey));
             setshowspin(false);
         } else {
             dispatch(getL1EvaluatedIdeaSuccess(null));
