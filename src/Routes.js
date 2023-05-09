@@ -156,6 +156,7 @@ import EditEvalProcess from './Admin/EvalProcess/EditEvalProcess';
 import SelDistricts from './Admin/EvalProcess/SelectingDistricts';
 import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
+import CDOWN from './Admin/CDown/index';
 
 const Routers = () => {
     // const history = useHistory();
@@ -329,6 +330,11 @@ const Routers = () => {
                         exact={true}
                         path="/admin/dashboard"
                         component={AdminDashboard}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/cdown"
+                        component={CDOWN}
                     />
                     <ProtectedRoute
                         exact={true}
