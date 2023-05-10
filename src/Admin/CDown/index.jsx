@@ -4,7 +4,7 @@ import { Card, CardBody, Container } from 'reactstrap';
 import { Button } from '../../stories/Button';
 import jsPDF from 'jspdf';
 import { getCurrentUser } from '../../helpers/Utils';
-import TeacherCertificate from '../../assets/media/img/certificates/Mentor_APUpdated.png';
+import TeacherCertificate from '../../assets/media/img/certificates/Idea_submission_stu_Ap.png';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDistrictData } from '../../redux/studentRegistration/actions';
@@ -38,7 +38,7 @@ const MyCertificate = () => {
         const doc = new jsPDF('l', 'px', [211, 298]);
         doc.html(content, {
             callback: function (doc) {
-                doc.save(`${org}_${name}_TeacherCertificate.pdf`);
+                doc.save(`${org}_${name}_IdeaCertificate.pdf`);
             }
         });
     };
