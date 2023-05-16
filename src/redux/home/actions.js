@@ -35,7 +35,7 @@ export const getDistrictData = () => async (dispatch) => {
             const item = result.data.data[0].dataValues;
             dispatch(getDistrictsDataSuccess(item));
         } else {
-            openNotificationWithIcon('error', 'Oops..! Something went wrong.');
+            openNotificationWithIcon('error', 'Map Districtdata');
         }
     } catch (error) {
         console.log(error);
