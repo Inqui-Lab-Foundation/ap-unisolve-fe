@@ -7,10 +7,7 @@ import {
     Row,
     Col,
     Card,
-    // CardImg,
     CardBody,
-    // CardTitle,
-    // CardText,
     Accordion,
     AccordionItem,
     AccordionHeader,
@@ -27,43 +24,38 @@ import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import Slider from 'react-slick';
-import LearnMentor from '../assets/media/home/learn.svg';
+import LearnMentor from '../assets/media/learn.svg';
 import upshift from '../assets/media/UPSHIFT-diagram.jpg';
-import testi1 from '../assets/media/home/testi/Herve_Morin_Global_head.jpg';
-import testi2 from '../assets/media/home/testi/Swathi.JPG';
-import IdeaBulb from '../assets/media/home/idea-bulb.png';
+import testi1 from '../assets/media/testi/Herve_Morin_Global_head.jpg';
+import testi2 from '../assets/media/testi/Swathi.JPG';
+import IdeaBulb from '../assets/media/idea-bulb.png';
 
-import map_icon_awa from '../assets/media/home/icon_aweraness.png';
-import map_icon_reg from '../assets/media/home/icon_registration.png';
-import map_icon_prob from '../assets/media/home/icon_problem_solving.png';
-import map_icon_test from '../assets/media/home/icon_solution_testing.png';
-import map_icon_pitch from '../assets/media/home/icon_solution_pichting.png';
-import map_icon_incu from '../assets/media/home/icon_incubation.png';
+import map_icon_awa from '../assets/media/icon_aweraness.png';
+import map_icon_reg from '../assets/media/icon_registration.png';
+import map_icon_prob from '../assets/media/icon_problem_solving.png';
+import map_icon_test from '../assets/media/icon_solution_testing.png';
+import map_icon_pitch from '../assets/media/icon_solution_pichting.png';
+import map_icon_incu from '../assets/media/icon_incubation.png';
 
-// ta brans
-//import SSA_Tamilnadu from '../assets/media/tn-brands/1_AP.png';
-import SIC_tamilnadu from '../assets/media/tn-brands/2_SSA-AP.png';
-import EDII_tamilnadu from '../assets/media/tn-brands/3_nif_ts.png';
-import UpShift_Tamilnadu from '../assets/media/tn-brands/4_UpShift_ts.png';
-import Yuwaah_Tamilnadu from '../assets/media/tn-brands/5_Yuwaah_ts.png';
-import IIF_Tamilnadu from '../assets/media/tn-brands/6_IIF_ts.png';
-import SS_Tamilnadu from '../assets/media/tn-brands/7_SS_ts.png';
-import Unicef_OOI_Tamilnadu from '../assets/media/tn-brands/8_Unicef_ts.png';
-import scert from '../assets/media/tn-brands/scert_amaravathi.png';
-import LogoTn from '../assets/media/tn-brands/AP_logo.png';
+// Brands
+import SIC_tamilnadu from '../assets/media/brands/2_SSA-AP.png';
+import EDII_tamilnadu from '../assets/media/brands/3_nif_ts.png';
+import UpShift_Tamilnadu from '../assets/media/brands/4_UpShift_ts.png';
+import Yuwaah_Tamilnadu from '../assets/media/brands/5_Yuwaah_ts.png';
+import IIF_Tamilnadu from '../assets/media/brands/6_IIF_ts.png';
+import SS_Tamilnadu from '../assets/media/brands/7_SS_ts.png';
+import Unicef_OOI_Tamilnadu from '../assets/media/brands/8_Unicef_ts.png';
+import scert from '../assets/media/brands/scert_amaravathi.png';
+import LogoTn from '../assets/media/brands/AP_logo.png';
 
-import Blog1 from '../assets/media/home/blog/walker_elders.jpg';
-import Blog2 from '../assets/media/home/blog/agriculture_bag.jpeg';
-import Blog3 from '../assets/media/home/blog/sweeping_machine.png';
-import RegisterPopup from './registration/RegisterPopup';
-import { getDistrictData, getDistrictLiveData } from '../redux/home/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import SchoolRegisterPopup from './SchoolRegisterPopup';
+import Blog1 from '../assets/media/blog/walker_elders.jpg';
+import Blog2 from '../assets/media/blog/agriculture_bag.jpeg';
+import Blog3 from '../assets/media/blog/sweeping_machine.png';
+import { getDistrictData} from '../redux/home/actions';
+import { useDispatch} from 'react-redux';
 import axios from 'axios';
 import ScrollToTop from 'react-scroll-to-top';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-import { getSchedulesForTeacherAndStudents } from '../redux/schedules/actions';
-import { compareDates } from '../helpers/Utils';
 import Vimeo from '@u-wave/react-vimeo';
 import i18next from 'i18next';
 import AndraPradeshMap from '../components/MapCard/AndraPradeshMap';
@@ -73,11 +65,6 @@ const Home = () => {
     const [open, setOpen] = useState('1');
     const dispatch = useDispatch();
     const history = useHistory();
-    const { schedules } = useSelector((state) => state.schedules);
-    const [modalShow, setModalShow] = useState(false);
-    // useLayoutEffect(() => {
-    //     dispatch(getSchedulesForTeacherAndStudents());
-    // }, []);
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
         if (
@@ -103,8 +90,6 @@ const Home = () => {
     const [diesCode, setDiesCode] = useState('');
     const [orgData, setOrgData] = useState({});
     const [show, setShow] = useState(false);
-    const [showPopUp, setShowPopUp] = useState(false);
-    // const [select, handleSelect] = useState(false);
 
     const [sidebar, setSidebar] = useState(false);
 
@@ -150,14 +135,9 @@ const Home = () => {
         e.preventDefault();
     };
 
-    const handleRegister = () => {
-        setShowPopUp(true);
-        setShow(false);
-    };
 
     useLayoutEffect(() => {
         dispatch(getDistrictData());
-        // dispatch(getDistrictLiveData());
     }, []);
 
     const toggle = (id) => {
@@ -366,7 +346,6 @@ const Home = () => {
                         label={t('home_tl.register')}
                         btnClass="primary px-0 register"
                         size="small"
-                        onClick={() => setModalShow(true)}
                     ></Button>
                 </Link>
                 <Nav className="ml-auto">
@@ -510,22 +489,12 @@ const Home = () => {
                                         ></div>
                                     </p>
                                     <div className="d-flex mini123">
-                                        {/* {schedules &&
-                                        schedules.length > 0 &&
-                                        schedules[0]?.teacher &&
-                                        schedules[0]?.teacher?.registration &&
-                                        compareDates(
-                                            schedules[0].teacher?.registration
-                                        ) ? ( */}
                                         <>
                                             <Button
                                                 // label={t('home.get_Started')}
                                                 label={t('home_tl.register')}
                                                 btnClass="primary mx-3"
                                                 size="small"
-                                                onClick={() =>
-                                                    setModalShow(true)
-                                                }
                                             />
 
                                             <Link
@@ -548,17 +517,6 @@ const Home = () => {
                                                 />
                                             </Link>
                                         </>
-                                        {/* ) : (
-                                            <p className="green reg_text_size">
-                                                Registration will start on{' '}
-                                                {schedules &&
-                                                    schedules.length > 0 &&
-                                                    schedules[0]?.teacher &&
-                                                    schedules[0]?.teacher
-                                                        ?.registration
-                                                        ?.start_date}
-                                            </p>
-                                        )} */}
                                     </div>
                                 </>
                             </Col>
@@ -592,11 +550,11 @@ const Home = () => {
                                 }}
                             ></div>
                         </Col>
-                        <Col md={6} className="position-relative">
+                        <Col md={6} className="position-relative" style={{minHeight:'35rem'}}>
                             <div className="position-absolute" style={{width:"100%",height:"100%"}}>
-                            <Vimeo 
-                                video={772458274}
-                            />  
+                                <Vimeo 
+                                    video={772458274}
+                                />  
                             </div>
                         </Col>
                     </Row>
@@ -1298,23 +1256,6 @@ const Home = () => {
                     </Col>
                 </Row>
             </footer>
-            {modalShow && (
-                <RegisterPopup
-                    show={modalShow}
-                    setShow={setModalShow}
-                    dics={setDiesCode}
-                    setShowPopUp={setShowPopUp}
-                    onHide={() => setModalShow(false)}
-                />
-            )}
-            {showPopUp && (
-                <SchoolRegisterPopup
-                    show={showPopUp}
-                    setShow={setShowPopUp}
-                    diesCode1={diesCode}
-                    onHide={() => setShowPopUp(false)}
-                />
-            )}
         </div>
     );
 };

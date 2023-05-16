@@ -1,9 +1,8 @@
 import { Card, CardBody } from 'reactstrap';
-// import SingleMapdataCard from './SingleMapdataCard';
-import institutions from '../../assets/media/img/university.png';
-import idea from '../../assets/media/img/idea.png';
-import people from '../../assets/media/img/people.png';
-import team from '../../assets/media/img/team.png';
+import institutions from '../../assets/media/university.png';
+import idea from '../../assets/media/idea.png';
+import people from '../../assets/media/people.png';
+import team from '../../assets/media/team.png';
 import { useTranslation } from 'react-i18next';
 
 

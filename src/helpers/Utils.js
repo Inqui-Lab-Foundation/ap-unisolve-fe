@@ -2,8 +2,6 @@
 import { notification } from 'antd';
 import moment from 'moment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { userLogout } from '../redux/studentRegistration/actions';
-// import { useTranslation } from 'react-i18next';
 
 export const getCurrentUser = () => {
     let user = null;
@@ -79,7 +77,7 @@ export const compareDates = (filterDate) => {
     );
 };
 
-export const logout = (history, t, module, dispatch) => {
+export const logout = (history, t, module) => {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -105,7 +103,6 @@ export const logout = (history, t, module, dispatch) => {
                 if (result.isConfirmed) {
                     localStorage.clear();
                     if (module) localStorage.removeItem('module');
-                    if (dispatch) dispatch(userLogout());
                     switch (module) {
                         case 'EVALUATOR':
                             history.push('/evaluator');

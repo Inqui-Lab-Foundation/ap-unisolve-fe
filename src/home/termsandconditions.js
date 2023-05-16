@@ -10,7 +10,6 @@ import {
 
 import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
 import { Link } from 'react-router-dom';
-// import LanguageSelectorComp from '../components/LanguageSelectorComp';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
@@ -45,9 +44,6 @@ const Termsandconditions = () => {
                                 </h2>
                             </Col>
                             <Col className="text-right multi-actions">
-                                
-
-                                {/* <LanguageSelectorComp /> */}
                             </Col>
                         </Row>
                         <Row>

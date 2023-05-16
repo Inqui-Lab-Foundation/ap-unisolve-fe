@@ -3,26 +3,16 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from './redux/store';
 import reportWebVitals from './reportWebVitals';
-// import { StrictMode } from "react";
-
 import { BrowserRouter } from 'react-router-dom';
-import { QuizProvider } from './context/quiz.context';
-import { DetailedQuizProvider } from './context/detailquiz.context';
 
 const App = React.lazy(() => import(/* webpackChunkName: "App" */ './App'));
 
 const Main = () => {
     return (
         <Provider store={configureStore()}>
-            <Suspense fallback={<div className='loading' />}>
+            <Suspense fallback={<div className="loading" />}>
                 <BrowserRouter>
-                    {/* <StrictMode> */}
-                    <DetailedQuizProvider>
-                        <QuizProvider>
-                            <App />
-                        </QuizProvider>
-                    </DetailedQuizProvider>
-                    {/* </StrictMode> */}
+                    <App />
                 </BrowserRouter>
             </Suspense>
         </Provider>
