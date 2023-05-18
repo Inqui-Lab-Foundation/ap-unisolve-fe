@@ -51,8 +51,6 @@ import LogoTn from '../assets/media/brands/AP_logo.png';
 import Blog1 from '../assets/media/blog/walker_elders.jpg';
 import Blog2 from '../assets/media/blog/agriculture_bag.jpeg';
 import Blog3 from '../assets/media/blog/sweeping_machine.png';
-import { getDistrictData} from '../redux/home/actions';
-import { useDispatch} from 'react-redux';
 import axios from 'axios';
 import ScrollToTop from 'react-scroll-to-top';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
@@ -63,25 +61,7 @@ import AndraPradeshMap from '../components/MapCard/AndraPradeshMap';
 const Home = () => {
     const { t } = useTranslation();
     const [open, setOpen] = useState('1');
-    const dispatch = useDispatch();
-    const history = useHistory();
-    useLayoutEffect(() => {
-        const moduleName = localStorage.getItem('module');
-        if (
-            localStorage.getItem('current_user') &&
-            localStorage.getItem('module')
-        ) {
-            moduleName === 'MENTOR'
-                ? history.push('/teacher/dashboard')
-                : moduleName === 'ADMIN'
-                ? history.push('/admin/dashboard')
-                : moduleName === 'EVALUATOR'
-                ? history.push('/evaluator/submitted-ideas')
-                : moduleName === 'EADMIN'
-                ? history.push('/eadmin/dashboard')
-                : history.push('/dashboard');
-        }
-    }, []);
+
     const [nav1, setNav1] = useState(null);
     const [nav2, setNav2] = useState(null);
     const [slider1, setSlider1] = useState(null);
@@ -134,11 +114,6 @@ const Home = () => {
             });
         e.preventDefault();
     };
-
-
-    useLayoutEffect(() => {
-        dispatch(getDistrictData());
-    }, []);
 
     const toggle = (id) => {
         open === id ? setOpen() : setOpen(id);
@@ -303,7 +278,6 @@ const Home = () => {
             title: `${t('home_tl.faq_qn_5')}`,
             desc: `${t('home_tl.faq_ans_5')}`
         }
-        
     ];
 
     const blogs = [
@@ -338,16 +312,10 @@ const Home = () => {
                 onOpen={() => setSidebar(!sidebar)}
                 onClose={() => setSidebar(!sidebar)}
             >
-                <Link className="menu-item" to="/login">
+                <a href="https://www.w3schools.com">
                     {t('home_nav_links.btn_login')}
-                </Link>
-                <Link className="menu-item" onClick={() => setSidebar(false)}>
-                    <Button
-                        label={t('home_tl.register')}
-                        btnClass="primary px-0 register"
-                        size="small"
-                    ></Button>
-                </Link>
+                </a>
+                <a href="https://www.google.com/">{t('home_tl.register')}</a>
                 <Nav className="ml-auto">
                     <NavItem onClick={() => setSidebar(false)}>
                         <AnchorLink
@@ -400,16 +368,13 @@ const Home = () => {
                         <Row className="justify-content-between fixed-top p-5 pb-lg-0 pb-3 pt-sm-2 mb-5 nav_row">
                             <Col md={5} className="my-auto mobile-menu">
                                 <h2 className="logo mb-0">
-                                    <Link className="" exact="true" to="/">
-                                        <figure className="m-0">
-                                            <img
-                                                src={LogoTn}
-                                                alt="logo"
-                                                className="w-5 logoImg"
-                                            />
-                                        </figure>
-                                    </Link>
-                                    {/* <LanguageSelectorComp module="general" /> */}
+                                    <figure className="m-0">
+                                        <img
+                                            src={LogoTn}
+                                            alt="logo"
+                                            className="w-5 logoImg"
+                                        />
+                                    </figure>
                                 </h2>
                             </Col>
                             <Col
@@ -496,26 +461,13 @@ const Home = () => {
                                                 btnClass="primary mx-3"
                                                 size="small"
                                             />
-
-                                            <Link
-                                                className="landing-page-actions1"
-                                                exact="true"
-                                                to="/teacher"
-                                            >
+                                            <a href="https://www.w3schools.com">
                                                 <Button
                                                     label={t('home_tl.login')}
                                                     btnClass="primary "
-                                                    onClick={() => {
-                                                        history.push(
-                                                            '/teacher'
-                                                        );
-                                                        i18next.changeLanguage(
-                                                            'en'
-                                                        );
-                                                    }}
                                                     size="small"
                                                 />
-                                            </Link>
+                                            </a>
                                         </>
                                     </div>
                                 </>
@@ -528,7 +480,7 @@ const Home = () => {
                 <Container>
                     <Row>
                         <Col md={12} className="text-center">
-                            <div className="heading" >
+                            <div className="heading">
                                 <h5>{t('home_tl.about_us')}</h5>
                                 <h2 className="sub-heading text-center">
                                     <div
@@ -550,11 +502,16 @@ const Home = () => {
                                 }}
                             ></div>
                         </Col>
-                        <Col md={6} className="position-relative" style={{minHeight:'35rem'}}>
-                            <div className="position-absolute" style={{width:"100%",height:"100%"}}>
-                                <Vimeo 
-                                    video={772458274}
-                                />  
+                        <Col
+                            md={6}
+                            className="position-relative"
+                            style={{ minHeight: '35rem' }}
+                        >
+                            <div
+                                className="position-absolute"
+                                style={{ width: '100%', height: '100%' }}
+                            >
+                                <Vimeo video={772458274} />
                             </div>
                         </Col>
                     </Row>
@@ -590,15 +547,17 @@ const Home = () => {
                 </div>
                 <Container className="py-md-4 py-2">
                     <Row className="student py-md-4 py-2">
-                            <Col
-                                md={12}
-                                lg={6}
-                                className="my-auto mx-auto student-heading px-5 "
-                                >
-                            <h2 className="mb-5 sub-heading"
-                            dangerouslySetInnerHTML={{
-                                __html: t('home_tl.power_by')
-                            }}>
+                        <Col
+                            md={12}
+                            lg={6}
+                            className="my-auto mx-auto student-heading px-5 "
+                        >
+                            <h2
+                                className="mb-5 sub-heading"
+                                dangerouslySetInnerHTML={{
+                                    __html: t('home_tl.power_by')
+                                }}
+                            >
                                 {/* UPSHIFT {' '}
                                 <span className="green">UNISOLVE</span>{' '} */}
                             </h2>
@@ -607,33 +566,6 @@ const Home = () => {
                                     __html: t('home_tl.upshift_power_desc')
                                 }}
                             ></div>
-                            {/* <Link
-                                className="landing-page-actions"
-                                exact="true"
-                                to="/login"
-                            >
-                                <h2 className="mb-5 sub-heading">
-                                    UPSHIFT {t('home_tl.power_by')}{' '}
-                                    <span className="green">UNISOLVE</span>{' '}
-                                </h2>
-                                <div
-                                    dangerouslySetInnerHTML={{
-                                        __html: t('home_tl.upshift_power_desc')
-                                    }}
-                                ></div>
-                                {/* <Link
-                                    className="landing-page-actions"
-                                    exact="true"
-                                    to="/login"
-                                >
-                                    <Button
-                                        label={t(
-                                            'home.learners_students_new_button'
-                                        )}
-                                        btnClass="primary mx-3"
-                                        size="small"
-                                    />
-                                </Link> */}
                         </Col>
                         <Col md={12} lg={6}>
                             <figure className="my-0">
@@ -647,76 +579,6 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
-            {/* <section className="mentor-student">
-        <Container className="both">
-            <Row>
-                <Col
-                    md={12}
-                    lg={6}
-                    className="my-auto teacher-heading order-2 order-xl-1"
-                >
-                    <div dangerouslySetInnerHTML={{ __html: t('home_tl.about_upshift_heading') }}></div>
-
-
-
-                    <div dangerouslySetInnerHTML={{ __html: t('home_tl.about_upshift_desc') }}></div>
-                    
-                </Col>
-
-                <Col
-                    md={12}
-                    lg={6}
-                    className="teacher order-1  order-md-2"
-                >
-                    <figure className='text-right'>
-                        <img
-                            src={upshift}
-                            alt="mentor"
-                            className="img-fluid" />
-                    </figure>
-                </Col>
-            </Row>
-
-            <Row className="student">
-                <Col md={12} lg={6}>
-                    <figure className='my-0'>
-                        <img
-                            src={LearnMentor}
-                            alt="learn"
-                            className="img-fluid" />
-                    </figure>
-                </Col>
-                <Col
-                    md={12}
-                    lg={6}
-                    className="my-auto mx-auto student-heading px-5 "
-                >
-                    
-                    <h2 className='mb-5 sub-heading'>
-
-                        UPSHIFT powered by <span className="green">
-                            UNISOLVE
-                        </span>{' '}
-                    </h2>
-                    <div dangerouslySetInnerHTML={{ __html: t('home_tl.upshift_power_desc') }}></div>
-                    <Link
-                        className="landing-page-actions"
-                        exact="true"
-                        to="/login"
-                    >
-                        <Button
-                            label={t(
-                                'home.learners_students_new_button'
-                            )}
-                            btnClass="primary mx-3"
-                            size="small" />
-                    </Link>
-
-                    
-                </Col>
-            </Row>
-        </Container>
-    </section> */}
             <section className="road-map" id="roadmap">
                 <div className="heading">
                     <h2 className="sub-heading w-100 text-center">
@@ -855,7 +717,7 @@ const Home = () => {
                     </h2>
                 </div>
                 {/* <TelanganaMap /> */}
-                <AndraPradeshMap/>
+                <AndraPradeshMap />
             </section>
             <section className="blog">
                 <Container>
@@ -931,7 +793,7 @@ const Home = () => {
             <section className="testimonials ">
                 <Container>
                     <Row className="text-center justify-content-md-center">
-                        <div className="heading" style={{zIndex:1}}>
+                        <div className="heading" style={{ zIndex: 1 }}>
                             <h2 className="sub-heading">
                                 {t('home.testimonials')}
                             </h2>
@@ -1183,15 +1045,13 @@ const Home = () => {
                             md={12}
                             className="footer-section-one my-auto logo"
                         >
-                            <Link className="w-auto" exact="true" to="/">
-                                <figure className="text-center">
-                                    <img
-                                        src={LogoTn}
-                                        alt="logo"
-                                        className="img-fluid w-25 logoImg"
-                                    />
-                                </figure>
-                            </Link>
+                            <figure className="text-center">
+                                <img
+                                    src={LogoTn}
+                                    alt="logo"
+                                    className="img-fluid w-25 logoImg"
+                                />
+                            </figure>
                         </Col>
                         <Col md={12} className="text-center nav-section my-3">
                             {/* <h3>{t('home.footer_imp_links')}</h3> */}
@@ -1228,7 +1088,7 @@ const Home = () => {
                                         {t('home_nav_links.partners')}
                                     </AnchorLink>
                                 </NavItem>
-                                <NavItem className="my-auto">
+                                <NavItem className="my-auto ">
                                     <AnchorLink
                                         className="menu-item text-black "
                                         href="#faq"
