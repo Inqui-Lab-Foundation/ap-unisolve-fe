@@ -55,7 +55,6 @@ import axios from 'axios';
 import ScrollToTop from 'react-scroll-to-top';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Vimeo from '@u-wave/react-vimeo';
-import i18next from 'i18next';
 import AndraPradeshMap from '../components/MapCard/AndraPradeshMap';
 // new push
 const Home = () => {
@@ -118,64 +117,45 @@ const Home = () => {
     const toggle = (id) => {
         open === id ? setOpen() : setOpen(id);
     };
-
-    // const [onSearch] = useState('');
-
-    // const { Search } = Input;
-
     const partners = [
-        // {
-        //     id: 1,
-        //     key: 'SSA',
-        //     // imageUrl: Unicef
-        //     imageUrl: SSA_Tamilnadu
-        // },
         {
-            id: 2,
+            id: 1,
             key: 'scert',
-            // imageUrl: Congnizant
             imageUrl: scert
         },
         {
             id: 2,
             key: 'SIC',
-            // imageUrl: Telangana
             imageUrl: SIC_tamilnadu
         },
         {
             id: 3,
             key: 'EDII',
-            // imageUrl: Inquilab
             imageUrl: EDII_tamilnadu
         },
         {
             id: 4,
             key: 'UpShift',
-            // imageUrl: Yuwaah
             imageUrl: UpShift_Tamilnadu
         },
         {
             id: 5,
             key: 'Yuwaah',
-            // imageUrl: YoungWarrior
             imageUrl: Yuwaah_Tamilnadu
         },
         {
             id: 6,
             key: 'IIF',
-            // imageUrl: Congnizant
             imageUrl: IIF_Tamilnadu
         },
         {
             id: 7,
             key: 'SS',
-            // imageUrl: Congnizant
             imageUrl: SS_Tamilnadu
         },
         {
             id: 8,
             key: 'Unicef',
-            // imageUrl: Congnizant
             imageUrl: Unicef_OOI_Tamilnadu
         }
     ];
@@ -221,7 +201,6 @@ const Home = () => {
         autoplay: true,
         autoplaySpeed: 3000,
         arrows: true,
-        // centerMode: true,
         focusOnSelect: true,
         asNavFor: '.slider-nav',
 
@@ -427,7 +406,6 @@ const Home = () => {
                                             <LanguageSelectorComp module="general" />
                                         </NavItem>
                                     </Nav>
-                                    {/* <LanguageSelectorComp module="general" /> */}
                                 </div>
                             </Col>
                         </Row>
@@ -456,7 +434,6 @@ const Home = () => {
                                     <div className="d-flex mini123">
                                         <>
                                             <Button
-                                                // label={t('home.get_Started')}
                                                 label={t('home_tl.register')}
                                                 btnClass="primary mx-3"
                                                 size="small"
@@ -557,10 +534,7 @@ const Home = () => {
                                 dangerouslySetInnerHTML={{
                                     __html: t('home_tl.power_by')
                                 }}
-                            >
-                                {/* UPSHIFT {' '}
-                                <span className="green">UNISOLVE</span>{' '} */}
-                            </h2>
+                            ></h2>
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html: t('home_tl.upshift_power_desc')
@@ -589,7 +563,6 @@ const Home = () => {
                 <div className="timeline">
                     <div className="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
                         <div className="timeline__event__icon ">
-                            {/* <i className="lni-cake">sdsd</i> */}
                             <img src={map_icon_awa} />
                         </div>
                         <div className="timeline__event__date text-white">
@@ -716,7 +689,6 @@ const Home = () => {
                         {t('home_tl.engagement')}
                     </h2>
                 </div>
-                {/* <TelanganaMap /> */}
                 <AndraPradeshMap />
             </section>
             <section className="blog">
@@ -748,7 +720,6 @@ const Home = () => {
                                         <div key={i}>
                                             <div
                                                 className="blog-card"
-                                                // style={{ backgroundImage: `url(${blog.imgUrl})` }}
                                                 style={{
                                                     backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(35, 31, 32, 0.99)),
                         url(${blog.imgUrl})`
@@ -892,9 +863,6 @@ const Home = () => {
                         <Col md={12} className="text-center">
                             <h2>{t('home.join_us')}</h2>
                             <div className="heading">
-                                {/* <h2 className="sub-heading1 mb-3">
-                                    {t('home.unisolve_partner')}
-                                </h2> */}
                                 <h5 className="text-center">
                                     {t('home.unisolve_partner_paragraph')}
                                 </h5>
@@ -941,7 +909,6 @@ const Home = () => {
                                             <br />
                                             City: {orgData.city}
                                             <br />
-                                            {/* {orgData.mentor != null && <span>Teacher already exist</span>} <br /> */}
                                             {orgData.mentor === null ? (
                                                 <span>
                                                     Teacher is not yet
@@ -976,21 +943,7 @@ const Home = () => {
                                                         participate in this
                                                         program.
                                                     </span>
-                                                    {/* <br />
-                                                    <u onClick={handleRegister}>
-                                                        Click here
-                                                    </u>{' '}
-                                                    to register your school */}
                                                 </Col>
-                                                {/* <Col className='text-right my-auto'>
-                                            <Button
-                                                
-                                                label="Click here"
-                                                btnClass="primary mx-3"
-                                                size="small"
-                                                onClick={handleRegister} />
-                                           
-                                        </Col> */}
                                             </Row>
                                         </Alert>
                                     </CardBody>

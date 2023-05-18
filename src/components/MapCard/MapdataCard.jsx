@@ -12,7 +12,7 @@ const MapdataCard = ({ values, all,districtName }) => {
         <>
             {all && !all?.district_name ? (
                 <div className="d-flex flex-column card-width">
-                    <Card className="card text-dark bg-light mb-3">
+                    <Card className="card border-0 text-dark bg-light mb-3 ">
                         <CardBody>
                             <h2 className="text-uppercase">
                                 {values?.district_name &&
@@ -61,7 +61,7 @@ const MapdataCard = ({ values, all,districtName }) => {
                 </div>
             ) : (
                 <div className="d-flex flex-column card-width">
-                    <Card className="card text-dark bg-light mb-3">
+                    <Card className="card border-0 text-dark bg-light mb-3">
                         <CardBody>
                             <h2 className="">{'Andhra Pradesh'}</h2>
                         </CardBody>
